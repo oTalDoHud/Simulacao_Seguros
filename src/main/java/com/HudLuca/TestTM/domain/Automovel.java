@@ -1,9 +1,15 @@
 package com.HudLuca.TestTM.domain;
 
 import com.HudLuca.TestTM.domain.enums.TempoHabilitacao;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity
+@Table(name = "tb_propriedade_automovel")
+@JsonTypeName("propriedadeAutomovel")
 public class Automovel extends Propriedade{
 
     private String placa;

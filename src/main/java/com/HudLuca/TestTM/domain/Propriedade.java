@@ -16,19 +16,16 @@ public abstract class Propriedade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
     private double valor;
     private int quantidade;
 
     public Propriedade(Long id, String nome, double valor, int quantidade) {
         this.id = id;
-        this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
     }
 
     public Propriedade(String nome, double valor, int quantidade) {
-        this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
     }
@@ -39,14 +36,6 @@ public abstract class Propriedade implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public double getValor() {
