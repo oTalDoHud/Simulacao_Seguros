@@ -16,7 +16,7 @@ public abstract class Propriedade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double valor;
+    protected double valor;
     private int quantidade;
 
     public Propriedade(Long id, String nome, double valor, int quantidade) {
@@ -28,6 +28,10 @@ public abstract class Propriedade implements Serializable {
     public Propriedade(String nome, double valor, int quantidade) {
         this.valor = valor;
         this.quantidade = quantidade;
+    }
+
+    public Propriedade() {
+
     }
 
     public Long getId() {
@@ -68,4 +72,6 @@ public abstract class Propriedade implements Serializable {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
+
+    public abstract void valorAnual();
 }

@@ -6,77 +6,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "tb_propriedade")
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
-public abstract class SeguroDeVida implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome;
-    private double valor;
-    private int quantidade;
-
-    public SeguroDeVida(Long id, String nome, double valor, int quantidade) {
-        this.id = id;
-        this.nome = nome;
-        this.valor = valor;
-        this.quantidade = quantidade;
-    }
+public class SeguroDeVida extends Propriedade{
 
     public SeguroDeVida(String nome, double valor, int quantidade) {
-        this.nome = nome;
-        this.valor = valor;
-        this.quantidade = quantidade;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+        super(nome, valor, quantidade);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public void valorAnual() {
 
-        SeguroDeVida that = (SeguroDeVida) o;
-
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
     }
 }

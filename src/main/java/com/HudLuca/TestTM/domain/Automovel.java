@@ -34,6 +34,10 @@ public class Automovel extends Propriedade{
         this.tempoHabilitacaoProprietario  = (tempoHabilitacaoProprietario == null) ? null : tempoHabilitacaoProprietario.getCd();
     }
 
+    public Automovel() {
+        super();
+    }
+
     public String getPlaca() {
         return placa;
     }
@@ -88,5 +92,10 @@ public class Automovel extends Propriedade{
 
     public void setTempoHabilitacaoProprietario(TempoHabilitacao tempoHabilitacaoProprietario) {
         this.tempoHabilitacaoProprietario = tempoHabilitacaoProprietario.getCd();
+    }
+
+    @Override
+    public void valorAnual() {
+        this.valor = 0.0;
     }
 }
