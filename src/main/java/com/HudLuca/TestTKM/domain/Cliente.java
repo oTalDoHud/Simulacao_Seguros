@@ -13,7 +13,7 @@ public class Cliente implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nome;
     @Column(unique = true)
     private String email;
@@ -37,7 +37,7 @@ public class Cliente implements Serializable {
         this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCd();
     }
 
-    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+    public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -45,11 +45,11 @@ public class Cliente implements Serializable {
         this.tipoCliente = (tipoCliente == null) ? null :  tipoCliente.getCd();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -14,28 +14,30 @@ public class Automovel extends Propriedade{
 
     private String placa;
     private String modelo;
+    private String marca;
     private Date anoFabricacao;
     private Integer quantidadeDeProprietarios;
     private String sexoProprietarioAtual;
     private Double quilometragem;
     private Integer tempoHabilitacaoProprietario;
 
+    public Automovel() {
+        super();
+    }
+
     public Automovel
-            (String nome, double valor, int quantidade, String placa, String modelo,
+            (String nome, double valor, int quantidade, String placa, String modelo, String marca,
                      Date anoFabricacao, Integer quantidadeDeProprietarios, String sexoProprietarioAtual,
                      Double quilometragem, TempoHabilitacao tempoHabilitacaoProprietario) {
         super(nome, valor, quantidade);
         this.placa = placa;
         this.modelo = modelo;
+        this.marca = marca;
         this.anoFabricacao = anoFabricacao;
         this.quantidadeDeProprietarios = quantidadeDeProprietarios;
         this.sexoProprietarioAtual = sexoProprietarioAtual;
         this.quilometragem = quilometragem;
         this.tempoHabilitacaoProprietario  = (tempoHabilitacaoProprietario == null) ? null : tempoHabilitacaoProprietario.getCd();
-    }
-
-    public Automovel() {
-        super();
     }
 
     public String getPlaca() {
@@ -52,6 +54,14 @@ public class Automovel extends Propriedade{
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public Date getAnoFabricacao() {
