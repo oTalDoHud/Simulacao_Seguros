@@ -1,6 +1,6 @@
 package com.HudLuca.TestTKM.resouce;
 
-import com.HudLuca.TestTKM.domain.Automovel;
+import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.service.AutomovelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

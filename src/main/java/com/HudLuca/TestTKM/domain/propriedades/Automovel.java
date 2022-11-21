@@ -1,6 +1,7 @@
-package com.HudLuca.TestTKM.domain;
+package com.HudLuca.TestTKM.domain.propriedades;
 
 import com.HudLuca.TestTKM.domain.enums.TempoHabilitacao;
+import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "tb_propriedade_automovel")
 @JsonTypeName("propriedadeAutomovel")
-public class Automovel extends Propriedade{
+public class Automovel extends Propriedade {
 
     private String placa;
     private String modelo;

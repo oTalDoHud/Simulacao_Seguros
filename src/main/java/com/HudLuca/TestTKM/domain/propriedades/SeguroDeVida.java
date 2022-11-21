@@ -1,4 +1,4 @@
-package com.HudLuca.TestTKM.domain;
+package com.HudLuca.TestTKM.domain.propriedades;
 
 
 public class SeguroDeVida extends Propriedade{

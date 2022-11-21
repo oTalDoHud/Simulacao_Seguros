@@ -1,4 +1,4 @@
-package com.HudLuca.TestTKM.domain;
+package com.HudLuca.TestTKM.domain.propriedades;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

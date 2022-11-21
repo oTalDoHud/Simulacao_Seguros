@@ -3,6 +3,7 @@ package com.HudLuca.TestTKM.service;
 import com.HudLuca.TestTKM.domain.*;
 import com.HudLuca.TestTKM.domain.enums.TempoHabilitacao;
 import com.HudLuca.TestTKM.domain.enums.TipoCliente;
+import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

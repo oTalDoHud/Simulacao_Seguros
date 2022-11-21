@@ -1,6 +1,6 @@
 package com.HudLuca.TestTKM.service;
 
-import com.HudLuca.TestTKM.domain.Automovel;
+import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.repositories.AutomovelRepository;
 import com.HudLuca.TestTKM.service.exception.ObjetoNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
