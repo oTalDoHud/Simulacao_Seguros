@@ -15,8 +15,8 @@ public class AutomovelService {
     private AutomovelRepository repository;
 
     public Automovel buscarPorId(Long id) {
-        Optional<Automovel> produto = repository.findById(id);
-        return produto.orElseThrow(() -> new ObjetoNaoEncontradoException(
+        Optional<Automovel> automovel = repository.findById(id);
+        return automovel.orElseThrow(() -> new ObjetoNaoEncontradoException(
                 "Automóvel não encontrada! id: " + id + ". Tipo: " + Automovel.class
         ));
     }
