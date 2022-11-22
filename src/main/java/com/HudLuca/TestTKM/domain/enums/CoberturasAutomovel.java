@@ -3,11 +3,11 @@ package com.HudLuca.TestTKM.domain.enums;
 public enum CoberturasAutomovel {
 
     INCENDIO(1, "Novato"),
-    DESASTRE_NATURAL(2, "Mediano"),
-    ACIDENTE(3, "Mediano"),
-    ROUBO(4, "Mediano"),
-    REBOQUE(5, "Mediano"),
-    TERCEIROS_DIRIGINDO(6, "Mediano"),
+    DESASTRE_NATURAL(2, "Desastre natural"),
+    ACIDENTE(3, "Acidente"),
+    ROUBO(4, "Roubo"),
+    REBOQUE(5, "Reboque"),
+    TERCEIROS_DIRIGINDO(6, "Terceiros dirigindo"),
     ;
 
     private int cd;
