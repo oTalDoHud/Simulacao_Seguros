@@ -4,6 +4,7 @@ import com.HudLuca.TestTKM.domain.*;
 import com.HudLuca.TestTKM.domain.enums.TempoHabilitacao;
 import com.HudLuca.TestTKM.domain.enums.TipoCliente;
 import com.HudLuca.TestTKM.domain.propriedades.Automovel;
+import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
 import com.HudLuca.TestTKM.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,10 @@ public class DBservice {
 
     @Autowired
     private PropriedadeRepository propriedadeRepository;
-
+    @Autowired
+    private SeguroRepository seguroRepository;
     @Autowired
     private CidadeRepository cidadeRepository;
-
     @Autowired
     private EstadoRepository estadoRepository;
     @Autowired
@@ -30,26 +31,6 @@ public class DBservice {
 
 
     public void instanciandoBancoDeDados() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        Automovel automovel1 = new Automovel("Automóvel Hudson - contrato completo feito em x lugar", 35000.00, 1,
-                "KAG2519", "Civic 2017", "Honda", sdf.parse("12/03/2018"),
-                2, "m", 40000.00, TempoHabilitacao.MEDIANO);
-
-        Automovel automovel2 = new Automovel("Seguro Larissa - feito por terceiros", 159000.00, 1,
-                "LXA9907", "Civic 2017", "Mitsubishi", sdf.parse("04/12/2018"),
-                2, "m", 40000.00, TempoHabilitacao.NOVATO);
-
-        Automovel automovel3 = new Automovel("Seguro Gabriel", 35000.00, 1,
-                "NEB4099", "audi r8", "Audi", sdf.parse("13/01/2018"),
-                2, "m", 40000.00, TempoHabilitacao.EXPERIENTE);
-
-        Automovel automovel4 = new Automovel("Seguro argus", 35000.00, 1,
-                "JAS1485", "Tesla model 3", "Tesla", sdf.parse("17/06/2018"),
-                2, "m", 40000.00, TempoHabilitacao.MEDIANO);
-
-        propriedadeRepository.saveAll(Arrays.asList(automovel1, automovel2, automovel3, automovel4));
-
 
         //CIDADES E ESTADOS
         Estado estadoSP = new Estado("São Paulo");
@@ -102,5 +83,39 @@ public class DBservice {
 
         enderecoRepository.saveAll(Arrays.asList(enderecoRuaFlores, enderecoAvenidaMatos,
                 enderecoEspiritoSanto, enderecoOtorrino));
+
+        //SEGUROS E PROPRIEDADES
+//        Propriedade automovel1 = new Automovel()
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        Automovel automovel1 = new Automovel("Automóvel Hudson - contrato completo feito em x lugar", 35000.00, 1,
+                "KAG2519", "Civic 2017", "Honda", sdf.parse("12/03/2018"),
+                2, "m", 40000.00, TempoHabilitacao.MEDIANO);
+
+        Automovel automovel2 = new Automovel("Seguro Larissa - feito por terceiros", 159000.00, 1,
+                "LXA9907", "Civic 2017", "Mitsubishi", sdf.parse("04/12/2018"),
+                2, "m", 40000.00, TempoHabilitacao.NOVATO);
+
+        Automovel automovel3 = new Automovel("Seguro Gabriel", 35000.00, 1,
+                "NEB4099", "audi r8", "Audi", sdf.parse("13/01/2018"),
+                2, "m", 40000.00, TempoHabilitacao.EXPERIENTE);
+
+        Automovel automovel4 = new Automovel("Seguro argus", 35000.00, 1,
+                "JAS1485", "Tesla model 3", "Tesla", sdf.parse("17/06/2018"),
+                2, "m", 40000.00, TempoHabilitacao.MEDIANO);
+
+        Seguro seguro1 = new Seguro("Seguro 01", clienteHudson, automovel1);
+        Seguro seguro2 = new Seguro("Seguro 02", clienteGabriel, automovel2);
+        Seguro seguro3 = new Seguro("Seguro 03", clienteLarissa, automovel3);
+        Seguro seguro4 = new Seguro("Seguro 04", clienteArgus, automovel4);
+
+        seguro1.getCoberturas().addAll(Arrays.asList(1, 2, 3));
+        seguro2.getCoberturas().addAll(Arrays.asList(1, 4, 5));
+        seguro3.getCoberturas().addAll(Arrays.asList(1, 8, 3));
+        seguro4.getCoberturas().addAll(Arrays.asList(6));
+
+        propriedadeRepository.saveAll(Arrays.asList(automovel1, automovel2, automovel3, automovel4));
+        seguroRepository.saveAll(Arrays.asList(seguro1, seguro2, seguro3, seguro4));
     }
 }
