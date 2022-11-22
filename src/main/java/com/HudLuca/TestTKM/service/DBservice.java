@@ -110,10 +110,10 @@ public class DBservice {
         Seguro seguro3 = new Seguro("Seguro 03", clienteLarissa, automovel3);
         Seguro seguro4 = new Seguro("Seguro 04", clienteArgus, automovel4);
 
-        seguro1.getCoberturas().addAll(Arrays.asList(1, 2, 3));
-        seguro2.getCoberturas().addAll(Arrays.asList(1, 4, 5));
-        seguro3.getCoberturas().addAll(Arrays.asList(1, 8, 3));
-        seguro4.getCoberturas().addAll(Arrays.asList(6));
+        seguro1.addCoberturas(1, 2, 3);
+        seguro2.addCoberturas(1, 4, 5);
+        seguro3.addCoberturas(1, 1, 1, 4, 3);
+        seguro4.addCoberturas(6);
 
         propriedadeRepository.saveAll(Arrays.asList(automovel1, automovel2, automovel3, automovel4));
         seguroRepository.saveAll(Arrays.asList(seguro1, seguro2, seguro3, seguro4));

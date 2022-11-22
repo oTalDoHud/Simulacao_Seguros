@@ -1,12 +1,11 @@
 package com.HudLuca.TestTKM.domain;
 
+import com.HudLuca.TestTKM.domain.enums.CoberturasAutomovel;
 import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_seguro")
@@ -75,12 +74,29 @@ public class Seguro implements Serializable {
         this.propriedade = propriedade;
     }
 
-    public Set<Integer> getCoberturas() {
-        return coberturas;
+    public List<CoberturasAutomovel> getCoberturas() {
+        List<CoberturasAutomovel> coberturasAutomovelList = new ArrayList<>();
+
+        for (Integer x : coberturas) {
+            coberturasAutomovelList.add(CoberturasAutomovel.toEnum(x));
+        }
+
+        return coberturasAutomovelList;
     }
 
     public void setCoberturas(Set<Integer> coberturas) {
         this.coberturas = coberturas;
+    }
+
+    public void addCoberturas(Integer... coberturas) {
+
+        for (Integer x : coberturas) {
+            if (CoberturasAutomovel.toEnum(x) != null) {
+                this.coberturas.add(x);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
     }
 
     @Override
