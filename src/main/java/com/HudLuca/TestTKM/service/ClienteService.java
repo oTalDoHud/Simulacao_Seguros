@@ -6,6 +6,7 @@ import com.HudLuca.TestTKM.service.exception.ObjetoNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,5 +20,9 @@ public class ClienteService {
         return cliente.orElseThrow(() -> new ObjetoNaoEncontradoException(
                 "Cliente não encontrada! id: " + id + ". Tipo: " + Cliente.class
         ));
+    }
+
+    public List<Cliente> buscarTudo() {
+        return clienteRepository.findAll();
     }
 }
