@@ -4,11 +4,9 @@ import com.HudLuca.TestTKM.domain.Cliente;
 import com.HudLuca.TestTKM.domain.dto.ClienteDTO;
 import com.HudLuca.TestTKM.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +32,18 @@ public class ClienteResource {
         for (Cliente x: clientes){
             clientesDTO.add(new ClienteDTO(x));
         }
+
+        return ResponseEntity.ok().body(clientesDTO);
+    }
+
+    @RequestMapping(path = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<ClienteDTO>> buscarPaginada(
+            @RequestParam(value = "paginas", defaultValue = "0") Integer paginas,
+            @RequestParam(value = "linhas", defaultValue = "24")Integer linhas,
+            @RequestParam(value = "ordenacao", defaultValue = "nome")String ordenacao,
+            @RequestParam(value = "direcaoOrdenacao", defaultValue = "ASC")String direcaoOrdenacao){
+        Page<Cliente> clientes = clienteService.buscarPage(paginas, linhas, ordenacao, direcaoOrdenacao);
+        Page<ClienteDTO> clientesDTO = clientes.map(x -> new ClienteDTO(x));
 
         return ResponseEntity.ok().body(clientesDTO);
     }

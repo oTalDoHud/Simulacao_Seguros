@@ -4,6 +4,9 @@ import com.HudLuca.TestTKM.domain.Cliente;
 import com.HudLuca.TestTKM.repositories.ClienteRepository;
 import com.HudLuca.TestTKM.service.exception.ObjetoNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,5 +27,10 @@ public class ClienteService {
 
     public List<Cliente> buscarTudo() {
         return clienteRepository.findAll();
+    }
+
+    public Page<Cliente> buscarPage(Integer paginas, Integer linhas, String ordenacao, String direcaoOrdenacao){
+        PageRequest pageRequest = PageRequest.of(paginas,linhas, Sort.Direction.valueOf(direcaoOrdenacao), ordenacao);
+        return clienteRepository.findAll(pageRequest);
     }
 }
