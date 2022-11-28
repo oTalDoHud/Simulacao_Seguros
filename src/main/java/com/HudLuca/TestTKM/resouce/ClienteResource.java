@@ -2,12 +2,16 @@ package com.HudLuca.TestTKM.resouce;
 
 import com.HudLuca.TestTKM.domain.Cliente;
 import com.HudLuca.TestTKM.domain.dto.ClienteDTO;
+import com.HudLuca.TestTKM.domain.dto.ClienteNovoDTO;
 import com.HudLuca.TestTKM.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,5 +50,17 @@ public class ClienteResource {
         Page<ClienteDTO> clientesDTO = clientes.map(x -> new ClienteDTO(x));
 
         return ResponseEntity.ok().body(clientesDTO);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> inserirCliente(@Valid @RequestBody ClienteNovoDTO clienteNovoDTO){
+        Cliente cliente = clienteService.DTOParaCliente(clienteNovoDTO);
+
+        cliente = clienteService.inserir(cliente);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
+                buildAndExpand(cliente.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 }
