@@ -1,7 +1,11 @@
 package com.HudLuca.TestTKM.domain;
 
 import com.HudLuca.TestTKM.domain.enums.CoberturasAutomovel;
+import com.HudLuca.TestTKM.domain.enums.CoberturasSeguroVida;
+import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
+import com.HudLuca.TestTKM.domain.propriedades.Residencia;
+import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -74,14 +78,22 @@ public class Seguro implements Serializable {
         this.propriedade = propriedade;
     }
 
-    public List<CoberturasAutomovel> getCoberturas() {
-        List<CoberturasAutomovel> coberturasAutomovelList = new ArrayList<>();
+    public List<String> getCoberturas() {
+        List<String> coberturasList = new ArrayList<>();
 
-        for (Integer x : coberturas) {
-            coberturasAutomovelList.add(CoberturasAutomovel.toEnum(x));
+        if (this.propriedade instanceof Automovel) {
+            for (Integer x : coberturas) {
+                coberturasList.add(CoberturasAutomovel.toEnum(x).getDescricao());
+            }
+        } else if (this.propriedade instanceof PropriedadeVida) {
+            for (Integer x : coberturas) {
+                coberturasList.add(CoberturasSeguroVida.toEnum(x).getDescricao());
+            }
+        } else if (this.propriedade instanceof Residencia) {
+            //implementar coberturas de Residencia
         }
 
-        return coberturasAutomovelList;
+        return coberturasList;
     }
 
     public void setCoberturas(Set<Integer> coberturas) {
@@ -90,14 +102,31 @@ public class Seguro implements Serializable {
 
     public void addCoberturas(Integer... coberturas) {
 
-        for (Integer x : coberturas) {
-            if (CoberturasAutomovel.toEnum(x) != null) {
-                this.coberturas.add(x);
-            } else {
-                throw new IllegalArgumentException();
+        if (this.propriedade instanceof Automovel) {
+            for (Integer x : coberturas) {
+                if (CoberturasAutomovel.toEnum(x) != null) {
+                    this.coberturas.add(x);
+                } else {
+                    throw new IllegalArgumentException();
+                }
             }
+        } else if (this.propriedade instanceof PropriedadeVida) {
+            for (Integer x : coberturas) {
+                if (CoberturasSeguroVida.toEnum(x) != null) {
+                    this.coberturas.add(x);
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            }
+        } else if (this.propriedade instanceof Residencia) {
+            //implementar coberturas de Residencia
+        } else {
+            throw new IllegalArgumentException("Informe uma cobertura válida - Propriedade informada não existe");
         }
+
+
     }
+
 
     @Override
     public boolean equals(Object o) {

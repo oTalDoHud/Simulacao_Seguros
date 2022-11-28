@@ -1,10 +1,11 @@
 package com.HudLuca.TestTKM.service;
 
 import com.HudLuca.TestTKM.domain.*;
+import com.HudLuca.TestTKM.domain.enums.ConsumoDrogas;
 import com.HudLuca.TestTKM.domain.enums.TempoHabilitacao;
 import com.HudLuca.TestTKM.domain.enums.TipoCliente;
 import com.HudLuca.TestTKM.domain.propriedades.Automovel;
-import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
+import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
 import com.HudLuca.TestTKM.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 @Service
 public class DBservice {
@@ -28,7 +30,8 @@ public class DBservice {
     private ClienteRepository clienteRepository;
     @Autowired
     private EnderecoRepository enderecoRepository;
-
+    @Autowired
+    private GerenciadorArquivoRepository gerenciadorArquivoRepository;
 
     public void instanciandoBancoDeDados() throws ParseException {
 
@@ -84,8 +87,7 @@ public class DBservice {
         enderecoRepository.saveAll(Arrays.asList(enderecoRuaFlores, enderecoAvenidaMatos,
                 enderecoEspiritoSanto, enderecoOtorrino));
 
-        //SEGUROS E PROPRIEDADES
-//        Propriedade automovel1 = new Automovel()
+        //PROPRIEDADES AUTOMOVEL
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -105,17 +107,49 @@ public class DBservice {
                 "JAS1485", "Tesla model 3", "Tesla", sdf.parse("17/06/2018"),
                 2, "m", 40000.00, TempoHabilitacao.MEDIANO);
 
-        Seguro seguro1 = new Seguro("Seguro 01", clienteHudson, automovel1);
-        Seguro seguro2 = new Seguro("Seguro 02", clienteGabriel, automovel2);
-        Seguro seguro3 = new Seguro("Seguro 03", clienteLarissa, automovel3);
-        Seguro seguro4 = new Seguro("Seguro 04", clienteArgus, automovel4);
-
-        seguro1.addCoberturas(1, 2, 3);
-        seguro2.addCoberturas(1, 4, 5);
-        seguro3.addCoberturas(1, 1, 1, 4, 3);
-        seguro4.addCoberturas(6);
 
         propriedadeRepository.saveAll(Arrays.asList(automovel1, automovel2, automovel3, automovel4));
-        seguroRepository.saveAll(Arrays.asList(seguro1, seguro2, seguro3, seguro4));
+
+        //PROPRIEDADE VIDA E ATESTADO DE SAUDE
+        GerenciadorArquivo atestadoSaudeHudson = new GerenciadorArquivo(clienteHudson, new Date(),
+                "AtestadoSaudeHudson.pdf", "servidor/Documentos/AtestadoSaudeHudson.pdf");
+        PropriedadeVida propriedadeVida1 = new PropriedadeVida(1,
+                "Não pratica", 35, 50000.000,
+                "Masculino", "Trabalho como desenvolvedor");
+        propriedadeVida1.getAtestadoDeSaude().addAll(Arrays.asList(atestadoSaudeHudson));
+        propriedadeVida1.setConsumoDrogas(ConsumoDrogas.ALCOOL, ConsumoDrogas.MEDICAMENTOS_RECORRENTES);
+
+        GerenciadorArquivo atestadoSaudeGabriel = new GerenciadorArquivo(clienteGabriel, new Date(),
+                "AtestadoSaudeGabriel.pdf", "servidor/Documentos/AtestadoSaudeGabriel.pdf");
+        PropriedadeVida propriedadeVida2 = new PropriedadeVida(1,
+                "Pratica", 19, 25000.00,
+                "Masculino", "Trabalho como paraquedista");
+        propriedadeVida2.getAtestadoDeSaude().addAll(Arrays.asList(atestadoSaudeGabriel));
+        propriedadeVida2.setConsumoDrogas(ConsumoDrogas.MACONHA);
+
+        gerenciadorArquivoRepository.saveAll(Arrays.asList(atestadoSaudeHudson, atestadoSaudeGabriel));
+        propriedadeRepository.saveAll(Arrays.asList(propriedadeVida1, propriedadeVida2));
+
+
+        //SEGUROS
+        Seguro seguroAutomovel1 = new Seguro("Seguro automovel 01", clienteHudson, automovel1);
+        Seguro seguroAutomovel2 = new Seguro("Seguro automovel 02", clienteGabriel, automovel2);
+        Seguro seguroAutomovel3 = new Seguro("Seguro automovel 03", clienteLarissa, automovel3);
+        Seguro seguroAutomovel4 = new Seguro("Seguro automovel 04", clienteArgus, automovel4);
+
+        Seguro seguroDeVida5 = new Seguro("Seguro de vida 01", clienteHudson, propriedadeVida1);
+        Seguro seguroDeVida6 = new Seguro("Seguro de vida 02", clienteGabriel, propriedadeVida2);
+
+        seguroAutomovel1.addCoberturas(1, 2, 3);
+        seguroAutomovel2.addCoberturas(1, 4, 5);
+        seguroAutomovel3.addCoberturas(1, 1, 1, 4, 3);
+        seguroAutomovel4.addCoberturas(6);
+
+        seguroDeVida5.addCoberturas(1, 3, 4);
+        seguroDeVida6.addCoberturas(1, 2, 4);
+        seguroRepository.saveAll(Arrays.asList(
+                seguroAutomovel1, seguroAutomovel2, seguroAutomovel3,
+                seguroAutomovel4, seguroDeVida5, seguroDeVida6
+        ));
     }
 }
