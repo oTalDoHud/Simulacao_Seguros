@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Pessoais ###
+mvnw
+mvnw.cmd
+.mvn/wrapper
