@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import java.text.ParseException;
 
 @Configuration
-@Profile("teste")
+@Profile("test")
 public class testConfig {
 
     @Autowired
