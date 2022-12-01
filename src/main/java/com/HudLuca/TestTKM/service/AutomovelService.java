@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.HudLuca.TestTKM.service.utils.StringUtils.getSTIdNaoEncontrado;
+
 @Service
 public class AutomovelService {
 
@@ -17,7 +19,7 @@ public class AutomovelService {
     public Automovel buscarPorId(Long id) {
         Optional<Automovel> automovel = repository.findById(id);
         return automovel.orElseThrow(() -> new ObjetoNaoEncontradoException(
-                "Automóvel não encontrada! id: " + id + ". Tipo: " + Automovel.class
+                getSTIdNaoEncontrado("Automóvel", "o", id, Automovel.class.getSimpleName())
         ));
     }
 }

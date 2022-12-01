@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.HudLuca.TestTKM.service.utils.StringUtils.getSTIdNaoEncontrado;
+
 @Service
 public class PropriedadeVidaService {
 
@@ -17,7 +19,7 @@ public class PropriedadeVidaService {
     public PropriedadeVida buscarPorId(Long id) {
         Optional<PropriedadeVida> propriedadeVida = repository.findById(id);
         return propriedadeVida.orElseThrow(() -> new ObjetoNaoEncontradoException(
-                "Propriedade Vida não encontrada! id: " + id + ". Tipo: " + PropriedadeVida.class
+                getSTIdNaoEncontrado("Propriedade vida","a", id, PropriedadeVida.class.getSimpleName())
         ));
     }
 }

@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.HudLuca.TestTKM.service.utils.StringUtils.getSTIdNaoEncontrado;
+
 @Service
 public class ClienteService {
 
@@ -29,7 +31,7 @@ public class ClienteService {
     public Cliente buscarPorId(Long id){
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.orElseThrow(() -> new ObjetoNaoEncontradoException(
-                "Cliente não encontrada! id: " + id + ". Tipo: " + Cliente.class
+                getSTIdNaoEncontrado("Cliente", "o(a)", id, Cliente.class.getSimpleName())
         ));
     }
 
