@@ -27,7 +27,7 @@ public class Automovel extends Propriedade {
     }
 
     public Automovel
-            (String nome, double valor, int quantidade, String placa, String modelo, String marca,
+            (double valor, int quantidade, String placa, String modelo, String marca,
                      Date anoFabricacao, Integer quantidadeDeProprietarios, String sexoProprietarioAtual,
                      Double quilometragem, TempoHabilitacao tempoHabilitacaoProprietario) {
         super(valor, quantidade);

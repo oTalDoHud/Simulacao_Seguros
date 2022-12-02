@@ -91,19 +91,19 @@ public class DBservice {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        Automovel automovel1 = new Automovel("Automóvel Hudson - contrato completo feito em x lugar", 35000.00, 1,
+        Automovel automovel1 = new Automovel(35000.00, 1,
                 "KAG2519", "Civic 2017", "Honda", sdf.parse("12/03/2018"),
                 2, "m", 40000.00, TempoHabilitacao.MEDIANO);
 
-        Automovel automovel2 = new Automovel("Seguro Larissa - feito por terceiros", 159000.00, 1,
+        Automovel automovel2 = new Automovel(159000.00, 1,
                 "LXA9907", "Civic 2017", "Mitsubishi", sdf.parse("04/12/2018"),
                 2, "m", 40000.00, TempoHabilitacao.NOVATO);
 
-        Automovel automovel3 = new Automovel("Seguro Gabriel", 35000.00, 1,
+        Automovel automovel3 = new Automovel(35000.00, 1,
                 "NEB4099", "audi r8", "Audi", sdf.parse("13/01/2018"),
                 2, "m", 40000.00, TempoHabilitacao.EXPERIENTE);
 
-        Automovel automovel4 = new Automovel("Seguro argus", 35000.00, 1,
+        Automovel automovel4 = new Automovel(35000.00, 1,
                 "JAS1485", "Tesla model 3", "Tesla", sdf.parse("17/06/2018"),
                 2, "m", 40000.00, TempoHabilitacao.MEDIANO);
 
