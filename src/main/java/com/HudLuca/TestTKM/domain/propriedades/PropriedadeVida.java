@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Table(name = "tb_propriedade_vida")
 @JsonTypeName("propriedadeVida")
@@ -66,6 +67,14 @@ public class PropriedadeVida extends Propriedade {
         this.idade = idade;
     }
 
+    public Double getValorAReceber() {
+        return valorAReceber;
+    }
+
+    public void setValorAReceber(Double valorAReceber) {
+        this.valorAReceber = valorAReceber;
+    }
+
     public List<GerenciadorArquivo> getAtestadoDeSaude() {
         return atestadoDeSaude;
     }
@@ -106,8 +115,4 @@ public class PropriedadeVida extends Propriedade {
         this.trabalho = trabalho;
     }
 
-    @Override
-    public void valorAnual() {
-
-    }
 }

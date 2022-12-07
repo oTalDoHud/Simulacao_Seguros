@@ -11,6 +11,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+import static com.HudLuca.TestTKM.utils.FormatUtils.formatDinheiro;
+
 @Entity
 @Table(name = "tb_seguro")
 public class Seguro implements Serializable {
@@ -19,7 +21,8 @@ public class Seguro implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String titulo;
+    private String tituloSeguro;
+    private Double valorSeguroAnual;
     @OneToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -33,15 +36,17 @@ public class Seguro implements Serializable {
     public Seguro() {
     }
 
-    public Seguro(String titulo, Cliente cliente, Propriedade propriedade) {
-        this.titulo = titulo;
+    public Seguro(String tituloSeguro, Double valorSeguroAnual, Cliente cliente, Propriedade propriedade) {
+        this.tituloSeguro = tituloSeguro;
+        this.valorSeguroAnual = valorSeguroAnual;
         this.cliente = cliente;
         this.propriedade = propriedade;
     }
 
-    public Seguro(Long id, String titulo, Cliente cliente, Propriedade propriedade) {
+    public Seguro(Long id, String tituloSeguro, Double valorSeguroAnual, Cliente cliente, Propriedade propriedade) {
         this.id = id;
-        this.titulo = titulo;
+        this.tituloSeguro = tituloSeguro;
+        this.valorSeguroAnual = valorSeguroAnual;
         this.cliente = cliente;
         this.propriedade = propriedade;
     }
@@ -54,12 +59,24 @@ public class Seguro implements Serializable {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getTituloSeguro() {
+        return tituloSeguro;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTituloSeguro(String tituloSeguro) {
+        this.tituloSeguro = tituloSeguro;
+    }
+
+    public String getValorSeguroAnual() {
+        return formatDinheiro(valorSeguroAnual);
+    }
+
+    public String getValorSeguroMensal() {
+        return formatDinheiro(valorSeguroAnual / 12);
+    }
+
+    public void setValorSeguroAnual(Double valorSeguroAnual) {
+        this.valorSeguroAnual = valorSeguroAnual;
     }
 
     public Cliente getCliente() {

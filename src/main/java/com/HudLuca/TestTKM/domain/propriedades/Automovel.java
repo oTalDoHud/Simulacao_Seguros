@@ -1,7 +1,6 @@
 package com.HudLuca.TestTKM.domain.propriedades;
 
 import com.HudLuca.TestTKM.domain.enums.TempoHabilitacao;
-import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
@@ -105,8 +104,4 @@ public class Automovel extends Propriedade {
         this.tempoHabilitacaoProprietario = tempoHabilitacaoProprietario.getCd();
     }
 
-    @Override
-    public void valorAnual() {
-        this.valor = 0.0;
-    }
 }

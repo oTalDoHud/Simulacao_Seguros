@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import static com.HudLuca.TestTKM.utils.FormatUtils.formatDinheiro;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tb_propriedade")
@@ -16,21 +18,21 @@ public abstract class Propriedade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    protected Double valor;
+    protected Double valorDaPropriedade;
     private int quantidade;
 
-    public Propriedade(Long id, Double valor, int quantidade) {
+    protected Propriedade(Long id, Double valorDaPropriedade, int quantidade) {
         this.id = id;
-        this.valor = valor;
+        this.valorDaPropriedade = valorDaPropriedade;
         this.quantidade = quantidade;
     }
 
-    public Propriedade(Double valor, int quantidade) {
-        this.valor = valor;
+    protected Propriedade(Double valorDaPropriedade, int quantidade) {
+        this.valorDaPropriedade = valorDaPropriedade;
         this.quantidade = quantidade;
     }
 
-    public Propriedade() {
+    protected Propriedade() {
 
     }
 
@@ -42,12 +44,12 @@ public abstract class Propriedade implements Serializable {
         this.id = id;
     }
 
-    public Double getValor() {
-        return valor;
+    public String getValorDaPropriedade() {
+        return formatDinheiro(valorDaPropriedade);
     }
 
-    public void setValor(Double valor) {
-        this.valor = valor;
+    public void setValorDaPropriedade(Double valorDaPropriedade) {
+        this.valorDaPropriedade = valorDaPropriedade;
     }
 
     public int getQuantidade() {
@@ -72,6 +74,4 @@ public abstract class Propriedade implements Serializable {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
-
-    public abstract void valorAnual();
 }
