@@ -51,4 +51,20 @@ public class BR {
         final Integer digit2 = calculate(tin.substring(0, 12) + digit1, weightTin);
         return tin.equals(tin.substring(0, 12) + digit1.toString() + digit2.toString());
     }
+
+    public static boolean isValidPlaca(String placa) {
+        boolean placaValida = true;
+
+        if (placa.length() > 0) {
+            if (placa.length() < 7) {
+                placaValida = false;
+            } else {
+                // mercosul && brasil
+                if (!placa.matches("[A-Z]{3}[0-9][A-Z][0-9]{2}") && !placa.matches("[A-Z]{3}\\d{4}")) {
+                    placaValida = false;
+                }
+            }
+        }
+        return placaValida;
+    }
 }

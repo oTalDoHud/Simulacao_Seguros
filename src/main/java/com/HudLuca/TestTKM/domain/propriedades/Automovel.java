@@ -26,10 +26,10 @@ public class Automovel extends Propriedade {
     }
 
     public Automovel
-            (double valor, int quantidade, String placa, String modelo, String marca,
+            (double valorDaPropriedade, int quantidade, String placa, String modelo, String marca,
                      Date anoFabricacao, Integer quantidadeDeProprietarios, String sexoProprietarioAtual,
                      Double quilometragem, TempoHabilitacao tempoHabilitacaoProprietario) {
-        super(valor, quantidade);
+        super(valorDaPropriedade, quantidade);
         this.placa = placa;
         this.modelo = modelo;
         this.marca = marca;
