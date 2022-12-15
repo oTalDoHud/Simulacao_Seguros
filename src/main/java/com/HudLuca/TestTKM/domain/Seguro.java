@@ -1,7 +1,7 @@
 package com.HudLuca.TestTKM.domain;
 
-import com.HudLuca.TestTKM.domain.enums.CoberturasAutomovel;
-import com.HudLuca.TestTKM.domain.enums.CoberturasSeguroVida;
+import com.HudLuca.TestTKM.domain.enums.CoberturasAutomovelEnum;
+import com.HudLuca.TestTKM.domain.enums.CoberturasSeguroVidaEnum;
 import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
 import com.HudLuca.TestTKM.domain.propriedades.Residencia;
@@ -100,11 +100,11 @@ public class Seguro implements Serializable {
 
         if (this.propriedade instanceof Automovel) {
             for (Integer x : coberturas) {
-                coberturasList.add(CoberturasAutomovel.toEnum(x).getDescricao());
+                coberturasList.add(CoberturasAutomovelEnum.toEnum(x).getDescricao());
             }
         } else if (this.propriedade instanceof PropriedadeVida) {
             for (Integer x : coberturas) {
-                coberturasList.add(CoberturasSeguroVida.toEnum(x).getDescricao());
+                coberturasList.add(CoberturasSeguroVidaEnum.toEnum(x).getDescricao());
             }
         } else if (this.propriedade instanceof Residencia) {
             //implementar coberturas de Residencia
@@ -121,7 +121,7 @@ public class Seguro implements Serializable {
 
         if (this.propriedade instanceof Automovel) {
             for (Integer x : coberturas) {
-                if (CoberturasAutomovel.toEnum(x) != null) {
+                if (CoberturasAutomovelEnum.toEnum(x) != null) {
                     this.coberturas.add(x);
                 } else {
                     throw new IllegalArgumentException();
@@ -129,7 +129,7 @@ public class Seguro implements Serializable {
             }
         } else if (this.propriedade instanceof PropriedadeVida) {
             for (Integer x : coberturas) {
-                if (CoberturasSeguroVida.toEnum(x) != null) {
+                if (CoberturasSeguroVidaEnum.toEnum(x) != null) {
                     this.coberturas.add(x);
                 } else {
                     throw new IllegalArgumentException();

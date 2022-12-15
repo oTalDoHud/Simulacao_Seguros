@@ -1,6 +1,6 @@
 package com.HudLuca.TestTKM.domain.enums;
 
-public enum CoberturasSeguroVida {
+public enum CoberturasSeguroVidaEnum {
 
     MORTE_NATURA(1, "Morte natural"),
     HOMICIDIO(2, "Homicídio"),
@@ -11,7 +11,7 @@ public enum CoberturasSeguroVida {
     private int cd;
     private String descricao;
 
-    private CoberturasSeguroVida(int cd, String descricao) {
+    private CoberturasSeguroVidaEnum(int cd, String descricao) {
         this.cd = cd;
         this.descricao = descricao;
     }
@@ -24,17 +24,17 @@ public enum CoberturasSeguroVida {
         return descricao;
     }
 
-    public static CoberturasSeguroVida toEnum(Integer integer) {
+    public static CoberturasSeguroVidaEnum toEnum(Integer integer) {
 
         if (integer == null) {
             return null;
         }
 
-        for (CoberturasSeguroVida x : CoberturasSeguroVida.values()) {
+        for (CoberturasSeguroVidaEnum x : CoberturasSeguroVidaEnum.values()) {
             if (integer.equals(x.cd)) {
                 return x;
             }
         }
-        throw new IllegalArgumentException("Id inválido do enum: " + CoberturasSeguroVida.class + "Id: " + integer);
+        throw new IllegalArgumentException("Id inválido do enum: " + CoberturasSeguroVidaEnum.class + "Id: " + integer);
     }
 }

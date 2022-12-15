@@ -27,8 +27,6 @@ public class AutomovelNovoDTO implements Serializable {
     private Date anoFabricacao;
     @Positive(message = "Quantidade de proprietarios não pode ser zero ou negativo")
     private Integer quantidadeDeProprietarios;
-    @NotEmpty(message = "Sexo do proprietario não pode estar vazio")
-    private String sexoProprietarioAtual;
     @Positive(message = "Quilometragem não pode ser zero ou negativo")
     private Double quilometragem;
     @Positive(message = "Tempo de habilitação do proprietarios não pode ser zero ou negativo")
@@ -38,14 +36,13 @@ public class AutomovelNovoDTO implements Serializable {
     }
 
     public AutomovelNovoDTO(String placa, String modelo, String marca, Date anoFabricacao,
-                            Integer quantidadeDeProprietarios, String sexoProprietarioAtual,
-                            Double quilometragem, Integer tempoHabilitacaoProprietario) {
+                            Integer quantidadeDeProprietarios, Double quilometragem,
+                            Integer tempoHabilitacaoProprietario) {
         this.placa = placa;
         this.modelo = modelo;
         this.marca = marca;
         this.anoFabricacao = anoFabricacao;
         this.quantidadeDeProprietarios = quantidadeDeProprietarios;
-        this.sexoProprietarioAtual = sexoProprietarioAtual;
         this.quilometragem = quilometragem;
         this.tempoHabilitacaoProprietario = tempoHabilitacaoProprietario;
     }
@@ -104,14 +101,6 @@ public class AutomovelNovoDTO implements Serializable {
 
     public void setQuantidadeDeProprietarios(Integer quantidadeDeProprietarios) {
         this.quantidadeDeProprietarios = quantidadeDeProprietarios;
-    }
-
-    public String getSexoProprietarioAtual() {
-        return sexoProprietarioAtual;
-    }
-
-    public void setSexoProprietarioAtual(String sexoProprietarioAtual) {
-        this.sexoProprietarioAtual = sexoProprietarioAtual;
     }
 
     public Double getQuilometragem() {

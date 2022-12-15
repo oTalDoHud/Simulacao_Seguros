@@ -1,19 +1,16 @@
+
+
 package com.HudLuca.TestTKM.domain.enums;
 
-public enum CoberturasAutomovel {
+public enum TipoClienteEnum {
 
-    INCENDIO(1, "Novato"),
-    DESASTRE_NATURAL(2, "Desastre natural"),
-    ACIDENTE(3, "Acidente"),
-    ROUBO(4, "Roubo"),
-    REBOQUE(5, "Reboque"),
-    TERCEIROS_DIRIGINDO(6, "Terceiros dirigindo"),
-    ;
+    PESSOA_FISICA(1, "Pessoa Física"),
+    PESSOA_JURIDICA(2, "Pessoa Jurídica");
 
     private int cd;
     private String descricao;
 
-    private CoberturasAutomovel(int cd, String descricao) {
+    private TipoClienteEnum(int cd, String descricao) {
         this.cd = cd;
         this.descricao = descricao;
     }
@@ -26,13 +23,13 @@ public enum CoberturasAutomovel {
         return descricao;
     }
 
-    public static CoberturasAutomovel toEnum(Integer integer) {
+    public static TipoClienteEnum toEnum(Integer integer) {
 
         if (integer == null) {
             return null;
         }
 
-        for (CoberturasAutomovel x : CoberturasAutomovel.values()) {
+        for (TipoClienteEnum x : TipoClienteEnum.values()) {
             if (integer.equals(x.cd)) {
                 return x;
             }

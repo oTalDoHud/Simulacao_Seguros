@@ -2,7 +2,7 @@ package com.HudLuca.TestTKM.service.validacao;
 
 import com.HudLuca.TestTKM.domain.Cliente;
 import com.HudLuca.TestTKM.domain.dto.ClienteNovoDTO;
-import com.HudLuca.TestTKM.domain.enums.TipoCliente;
+import com.HudLuca.TestTKM.domain.enums.TipoClienteEnum;
 import com.HudLuca.TestTKM.repositories.ClienteRepository;
 import com.HudLuca.TestTKM.resouce.exception.CampoMenssagemErro;
 import com.HudLuca.TestTKM.service.validacao.utils.BR;
@@ -26,12 +26,12 @@ public class ClienteInserirValidador implements ConstraintValidator<ClienteInser
     public boolean isValid(ClienteNovoDTO clienteNovoDTO, ConstraintValidatorContext context) {
         List<CampoMenssagemErro> list = new ArrayList<>();
 
-        if (clienteNovoDTO.getTipoCliente().equals(TipoCliente.PESSOA_FISICA.getCd())
+        if (clienteNovoDTO.getTipoCliente().equals(TipoClienteEnum.PESSOA_FISICA.getCd())
                 && !BR.isValidoCPF(clienteNovoDTO.getCpfOuCnpj())) {
             list.add(new CampoMenssagemErro("cpfOuCnpj", "CPF inválido"));
         }
 
-        if (clienteNovoDTO.getTipoCliente().equals(TipoCliente.PESSOA_JURIDICA.getCd())
+        if (clienteNovoDTO.getTipoCliente().equals(TipoClienteEnum.PESSOA_JURIDICA.getCd())
                 && !BR.isValidoCNPJ(clienteNovoDTO.getCpfOuCnpj())) {
             list.add(new CampoMenssagemErro("cpfOuCnpj", "CNPJ inválido"));
         }

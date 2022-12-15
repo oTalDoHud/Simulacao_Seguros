@@ -1,6 +1,6 @@
 package com.HudLuca.TestTKM.domain.enums;
 
-public enum ConsumoDrogas {
+public enum ConsumoDrogasEnum {
 
     ALCOOL(1, "Uso de bebidas alcóolicas"),
     TABACO(2, "Uso de tabaco/cigarro"),
@@ -15,7 +15,7 @@ public enum ConsumoDrogas {
     private int cd;
     private String descricao;
 
-    private ConsumoDrogas(int cd, String descricao) {
+    private ConsumoDrogasEnum(int cd, String descricao) {
         this.cd = cd;
         this.descricao = descricao;
     }
@@ -28,13 +28,13 @@ public enum ConsumoDrogas {
         return descricao;
     }
 
-    public static ConsumoDrogas toEnum(Integer integer) {
+    public static ConsumoDrogasEnum toEnum(Integer integer) {
 
         if (integer == null) {
             return null;
         }
 
-        for (ConsumoDrogas x : ConsumoDrogas.values()) {
+        for (ConsumoDrogasEnum x : ConsumoDrogasEnum.values()) {
             if (integer.equals(x.cd)) {
                 return x;
             }

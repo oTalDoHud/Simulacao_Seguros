@@ -1,9 +1,10 @@
 package com.HudLuca.TestTKM.service;
 
 import com.HudLuca.TestTKM.domain.*;
-import com.HudLuca.TestTKM.domain.enums.ConsumoDrogas;
-import com.HudLuca.TestTKM.domain.enums.TempoHabilitacao;
-import com.HudLuca.TestTKM.domain.enums.TipoCliente;
+import com.HudLuca.TestTKM.domain.enums.ConsumoDrogasEnum;
+import com.HudLuca.TestTKM.domain.enums.SexoClienteEnum;
+import com.HudLuca.TestTKM.domain.enums.TempoHabilitacaoEnum;
+import com.HudLuca.TestTKM.domain.enums.TipoClienteEnum;
 import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
 import com.HudLuca.TestTKM.repositories.*;
@@ -49,17 +50,17 @@ public class DBservice {
         estadoRepository.saveAll(Arrays.asList(estadoSP, estadoMG));
         cidadeRepository.saveAll(Arrays.asList(cidadeUber, cidadeSP, cidadeCampinas));
 
-        Cliente clienteHudson = new Cliente("Hudson Lucas Teles Vieira",
-                "Hudson@gmail.com", "52840256010", TipoCliente.PESSOA_FISICA);
+        Cliente clienteHudson = new Cliente("Hudson Lucas Teles Vieira", SexoClienteEnum.MASCULINO,
+                "Hudson@gmail.com", "52840256010", TipoClienteEnum.PESSOA_FISICA);
 
-        Cliente clienteLarissa = new Cliente("Larissa Bertoldo Santos",
-                "Larissa@gmail.com", "40530720000", TipoCliente.PESSOA_FISICA);
+        Cliente clienteLarissa = new Cliente("Larissa Bertoldo Santos", SexoClienteEnum.FEMININO,
+                "Larissa@gmail.com", "40530720000", TipoClienteEnum.PESSOA_FISICA);
 
-        Cliente clienteGabriel = new Cliente("Gabriel Henrique Teles Vieira",
-                "Gabriel@gmail.com", "79027285004", TipoCliente.PESSOA_FISICA);
+        Cliente clienteGabriel = new Cliente("Gabriel Henrique Teles Vieira", SexoClienteEnum.MASCULINO,
+                "Gabriel@gmail.com", "79027285004", TipoClienteEnum.PESSOA_FISICA);
 
-        Cliente clienteArgus = new Cliente("Argus Sec",
-                "Argus@gmail.com", "66654230000", TipoCliente.PESSOA_JURIDICA);
+        Cliente clienteArgus = new Cliente("Argus Sec", SexoClienteEnum.NAO_DEFINIDO,
+                "Argus@gmail.com", "66654230000", TipoClienteEnum.PESSOA_JURIDICA);
 
         clienteHudson.getTelefones().addAll(Arrays.asList("933350-8032", "192858-2673"));
         clienteLarissa.getTelefones().addAll(Arrays.asList("183612-2406", "113167-1477"));
@@ -93,19 +94,19 @@ public class DBservice {
 
         Automovel automovel1 = new Automovel(35000.00, 1,
                 "KAG2519", "Civic 2017", "Honda", sdf.parse("12/03/2018"),
-                2, "m", 40000.00, TempoHabilitacao.MEDIANO);
+                2, 40000.00, TempoHabilitacaoEnum.MEDIANO);
 
         Automovel automovel2 = new Automovel(159000.00, 1,
                 "LXA9907", "Civic 2017", "Mitsubishi", sdf.parse("04/12/2018"),
-                2, "m", 40000.00, TempoHabilitacao.NOVATO);
+                2, 40000.00, TempoHabilitacaoEnum.NOVATO);
 
         Automovel automovel3 = new Automovel(35000.00, 1,
                 "NEB4099", "audi r8", "Audi", sdf.parse("13/01/2018"),
-                2, "m", 40000.00, TempoHabilitacao.EXPERIENTE);
+                2, 40000.00, TempoHabilitacaoEnum.EXPERIENTE);
 
         Automovel automovel4 = new Automovel(35000.00, 1,
                 "JAS1485", "Tesla model 3", "Tesla", sdf.parse("17/06/2018"),
-                2, "m", 40000.00, TempoHabilitacao.MEDIANO);
+                2, 40000.00, TempoHabilitacaoEnum.MEDIANO);
 
 
         propriedadeRepository.saveAll(Arrays.asList(automovel1, automovel2, automovel3, automovel4));
@@ -117,7 +118,7 @@ public class DBservice {
                 "Não pratica", 35, 50000.000,
                 "Masculino", "Trabalho como desenvolvedor");
         propriedadeVida1.getAtestadoDeSaude().addAll(Arrays.asList(atestadoSaudeHudson));
-        propriedadeVida1.setConsumoDrogas(ConsumoDrogas.ALCOOL, ConsumoDrogas.MEDICAMENTOS_RECORRENTES);
+        propriedadeVida1.setConsumoDrogas(ConsumoDrogasEnum.ALCOOL, ConsumoDrogasEnum.MEDICAMENTOS_RECORRENTES);
 
         GerenciadorArquivo atestadoSaudeGabriel = new GerenciadorArquivo(clienteGabriel, new Date(),
                 "AtestadoSaudeGabriel.pdf", "servidor/Documentos/AtestadoSaudeGabriel.pdf");
@@ -125,7 +126,7 @@ public class DBservice {
                 "Pratica", 19, 25000.00,
                 "Masculino", "Trabalho como paraquedista");
         propriedadeVida2.getAtestadoDeSaude().addAll(Arrays.asList(atestadoSaudeGabriel));
-        propriedadeVida2.setConsumoDrogas(ConsumoDrogas.MACONHA);
+        propriedadeVida2.setConsumoDrogas(ConsumoDrogasEnum.MACONHA);
 
         gerenciadorArquivoRepository.saveAll(Arrays.asList(atestadoSaudeHudson, atestadoSaudeGabriel));
         propriedadeRepository.saveAll(Arrays.asList(propriedadeVida1, propriedadeVida2));

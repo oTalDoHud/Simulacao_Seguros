@@ -1,7 +1,7 @@
 package com.HudLuca.TestTKM.service;
 
 import com.HudLuca.TestTKM.domain.dto.AutomovelNovoDTO;
-import com.HudLuca.TestTKM.domain.enums.TempoHabilitacao;
+import com.HudLuca.TestTKM.domain.enums.TempoHabilitacaoEnum;
 import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.repositories.AutomovelRepository;
 import com.HudLuca.TestTKM.service.exception.ObjetoNaoEncontradoException;
@@ -35,34 +35,32 @@ public class AutomovelService {
 
     public Automovel DTOparaAutomovel(AutomovelNovoDTO dto){
 
-        Integer periciaMotorista = CalcularPericiaHabilitado(dto.getTempoHabilitacaoProprietario(), dto.getSexoProprietarioAtual());
-
         return new Automovel(dto.getValor(), dto.getQuantidade(), dto.getPlaca(), dto.getModelo(),
                 dto.getMarca(), dto.getAnoFabricacao(), dto.getQuantidadeDeProprietarios(),
-                dto.getSexoProprietarioAtual(), dto.getQuilometragem(), TempoHabilitacao.toEnum(periciaMotorista));
+                dto.getQuilometragem(), TempoHabilitacaoEnum.toEnum(4));
     }
 
     private Integer CalcularPericiaHabilitado(Integer tempoHabilitacaoProprietario, String sexoProprietarioAtual) {
 
-        if(tempoHabilitacaoProprietario != null && sexoProprietarioAtual != null){
-            if ("mulher".equals(sexoProprietarioAtual.toLowerCase())){
-                if (tempoHabilitacaoProprietario <= 4){
-                    return TempoHabilitacao.NOVATO.getCd();
-                }else if(tempoHabilitacaoProprietario <= 9){
-                    return TempoHabilitacao.MEDIANO.getCd();
-                }else {
-                    return TempoHabilitacao.EXPERIENTE.getCd();
-                }
-            } else if ("homem".equals(sexoProprietarioAtual.toLowerCase())) {
-                if (tempoHabilitacaoProprietario <= 5){
-                    return TempoHabilitacao.NOVATO.getCd();
-                }else if(tempoHabilitacaoProprietario <= 10){
-                    return TempoHabilitacao.MEDIANO.getCd();
-                }else {
-                    return TempoHabilitacao.EXPERIENTE.getCd();
-                }
-            }
-        }
+//        if(tempoHabilitacaoProprietario != null && sexoProprietarioAtual != null){
+//            if ("mulher".equals(sexoProprietarioAtual.toLowerCase())){
+//                if (tempoHabilitacaoProprietario <= 4){
+//                    return TempoHabilitacaoEnum.NOVATO.getCd();
+//                }else if(tempoHabilitacaoProprietario <= 9){
+//                    return TempoHabilitacaoEnum.MEDIANO.getCd();
+//                }else {
+//                    return TempoHabilitacaoEnum.EXPERIENTE.getCd();
+//                }
+//            } else if ("homem".equals(sexoProprietarioAtual.toLowerCase())) {
+//                if (tempoHabilitacaoProprietario <= 5){
+//                    return TempoHabilitacaoEnum.NOVATO.getCd();
+//                }else if(tempoHabilitacaoProprietario <= 10){
+//                    return TempoHabilitacaoEnum.MEDIANO.getCd();
+//                }else {
+//                    return TempoHabilitacaoEnum.EXPERIENTE.getCd();
+//                }
+//            }
+//        }
         throw new IllegalArgumentException("Sexo ou tempo de experiência dirigindo está nulo");
     }
 }

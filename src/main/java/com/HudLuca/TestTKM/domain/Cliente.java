@@ -1,6 +1,7 @@
 package com.HudLuca.TestTKM.domain;
 
-import com.HudLuca.TestTKM.domain.enums.TipoCliente;
+import com.HudLuca.TestTKM.domain.enums.SexoClienteEnum;
+import com.HudLuca.TestTKM.domain.enums.TipoClienteEnum;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    private Integer sexo;
     @Column(unique = true)
     private String email;
     private String cpfOuCnpj;
@@ -30,19 +32,21 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+    public Cliente(String nome, SexoClienteEnum sexo, String email, String cpfOuCnpj, TipoClienteEnum tipoClienteEnum) {
         this.nome = nome;
+        this.sexo = (sexo == null) ? null : sexo.getCd();
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCd();
+        this.tipoCliente = (tipoClienteEnum == null) ? null : tipoClienteEnum.getCd();
     }
 
-    public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+    public Cliente(Long id, String nome, SexoClienteEnum sexo, String email, String cpfOuCnpj, TipoClienteEnum tipoClienteEnum) {
         this.id = id;
         this.nome = nome;
+        this.sexo = (sexo == null) ? null : sexo.getCd();
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCliente = (tipoCliente == null) ? null :  tipoCliente.getCd();
+        this.tipoCliente = (tipoClienteEnum == null) ? null : tipoClienteEnum.getCd();
     }
 
     public Long getId() {
@@ -61,6 +65,14 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
+    public String getSexo() {
+        return SexoClienteEnum.toEnum(sexo).getDescricao();
+    }
+
+    public void setSexo(SexoClienteEnum sexo) {
+        this.sexo = sexo.getCd();
+    }
+
     public String getEmail() {
         return email;
     }
@@ -77,12 +89,12 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
     }
 
-    public TipoCliente getTipoCliente() {
-        return TipoCliente.toEnum(this.tipoCliente);
+    public String getTipoCliente() {
+        return TipoClienteEnum.toEnum(this.tipoCliente).getDescricao();
     }
 
-    public void setTipoCliente(TipoCliente tipoCliente) {
-        this.tipoCliente = tipoCliente.getCd();
+    public void setTipoCliente(TipoClienteEnum tipoClienteEnum) {
+        this.tipoCliente = tipoClienteEnum.getCd();
     }
 
     public List<Endereco> getEnderecos() {

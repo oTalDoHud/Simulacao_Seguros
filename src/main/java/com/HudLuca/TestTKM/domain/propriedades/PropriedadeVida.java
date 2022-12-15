@@ -2,7 +2,7 @@ package com.HudLuca.TestTKM.domain.propriedades;
 
 
 import com.HudLuca.TestTKM.domain.GerenciadorArquivo;
-import com.HudLuca.TestTKM.domain.enums.ConsumoDrogas;
+import com.HudLuca.TestTKM.domain.enums.ConsumoDrogasEnum;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.*;
@@ -94,14 +94,14 @@ public class PropriedadeVida extends Propriedade {
     public List<String> getConsumoDrogas() {
         List<String> consumoDrogasList = new ArrayList<>();
         for (Integer x : this.consumoDrogas) {
-            consumoDrogasList.add(ConsumoDrogas.toEnum(x).getDescricao());
+            consumoDrogasList.add(ConsumoDrogasEnum.toEnum(x).getDescricao());
         }
         return consumoDrogasList;
     }
 
-    public void setConsumoDrogas(ConsumoDrogas... consumoDrogas) {
+    public void setConsumoDrogas(ConsumoDrogasEnum... consumoDrogasEnums) {
         List<Integer> consumoDrogasList = new ArrayList<>();
-        for (ConsumoDrogas x : consumoDrogas) {
+        for (ConsumoDrogasEnum x : consumoDrogasEnums) {
             consumoDrogasList.add(x.getCd());
         }
         this.consumoDrogas = consumoDrogasList;

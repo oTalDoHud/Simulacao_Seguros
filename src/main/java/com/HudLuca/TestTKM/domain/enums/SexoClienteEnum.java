@@ -1,15 +1,15 @@
 package com.HudLuca.TestTKM.domain.enums;
 
-public enum TempoHabilitacao {
-
-    NOVATO(1, "Novato"),
-    MEDIANO(2, "Mediano"),
-    EXPERIENTE(3, "Experiente");
+public enum SexoClienteEnum {
+    MASCULINO(1, "Masculino"),
+    FEMININO(2, "Feminino"),
+    NAO_DEFINIDO(3, "Não definido"),
+    ;
 
     private int cd;
     private String descricao;
 
-    private TempoHabilitacao(int cd, String descricao) {
+    private SexoClienteEnum(int cd, String descricao) {
         this.cd = cd;
         this.descricao = descricao;
     }
@@ -22,13 +22,13 @@ public enum TempoHabilitacao {
         return descricao;
     }
 
-    public static TempoHabilitacao toEnum(Integer integer) {
+    public static SexoClienteEnum toEnum(Integer integer) {
 
         if (integer == null) {
             return null;
         }
 
-        for (TempoHabilitacao x : TempoHabilitacao.values()) {
+        for (SexoClienteEnum x : SexoClienteEnum.values()) {
             if (integer.equals(x.cd)) {
                 return x;
             }

@@ -1,16 +1,17 @@
-
-
 package com.HudLuca.TestTKM.domain.enums;
 
-public enum TipoCliente {
+public enum TempoHabilitacaoEnum {
 
-    PESSOA_FISICA(1, "Pessoa Física"),
-    PESSOA_JURIDICA(2, "Pessoa Jurídica");
+    NOVATO(1, "Novato"),
+    MEDIANO(2, "Mediano"),
+    EXPERIENTE(3, "Experiente"),
+    INDEFERIDO(4, "Indeferido"),
+    ;
 
     private int cd;
     private String descricao;
 
-    private TipoCliente(int cd, String descricao) {
+    private TempoHabilitacaoEnum(int cd, String descricao) {
         this.cd = cd;
         this.descricao = descricao;
     }
@@ -23,13 +24,13 @@ public enum TipoCliente {
         return descricao;
     }
 
-    public static TipoCliente toEnum(Integer integer) {
+    public static TempoHabilitacaoEnum toEnum(Integer integer) {
 
         if (integer == null) {
             return null;
         }
 
-        for (TipoCliente x : TipoCliente.values()) {
+        for (TempoHabilitacaoEnum x : TempoHabilitacaoEnum.values()) {
             if (integer.equals(x.cd)) {
                 return x;
             }

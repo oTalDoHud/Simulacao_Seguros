@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 
 @ClienteInserir
@@ -19,7 +20,10 @@ public class ClienteNovoDTO implements Serializable {
     private String email;
     @NotEmpty(message = "O campo  Cpf/Cnpj é obrigatório")
     private String cpfOuCnpj;
+    @Positive(message = "tipoCliente não pode ser negativo ou zero")
     private Integer tipoCliente;
+    @Positive(message = "sexo não pode ser negativo ou zero")
+    private Integer sexo;
     @NotEmpty(message = "O campo logradouro é obrigatório")
     private String logradouro;
     @NotEmpty(message = "O número nome é obrigatório")
@@ -75,6 +79,14 @@ public class ClienteNovoDTO implements Serializable {
 
     public void setTipoCliente(Integer tipoCliente) {
         this.tipoCliente = tipoCliente;
+    }
+
+    public Integer getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Integer sexo) {
+        this.sexo = sexo;
     }
 
     public String getLogradouro() {

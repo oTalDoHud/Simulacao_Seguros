@@ -4,7 +4,8 @@ import com.HudLuca.TestTKM.domain.Cidade;
 import com.HudLuca.TestTKM.domain.Cliente;
 import com.HudLuca.TestTKM.domain.Endereco;
 import com.HudLuca.TestTKM.domain.dto.ClienteNovoDTO;
-import com.HudLuca.TestTKM.domain.enums.TipoCliente;
+import com.HudLuca.TestTKM.domain.enums.SexoClienteEnum;
+import com.HudLuca.TestTKM.domain.enums.TipoClienteEnum;
 import com.HudLuca.TestTKM.repositories.ClienteRepository;
 import com.HudLuca.TestTKM.repositories.EnderecoRepository;
 import com.HudLuca.TestTKM.service.exception.ObjetoNaoEncontradoException;
@@ -28,7 +29,7 @@ public class ClienteService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public Cliente buscarPorId(Long id){
+    public Cliente buscarPorId(Long id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.orElseThrow(() -> new ObjetoNaoEncontradoException(
                 getSTIdNaoEncontrado("Cliente", "o(a)", id, Cliente.class.getSimpleName())
@@ -39,22 +40,22 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Page<Cliente> buscarPage(Integer paginas, Integer linhas, String ordenacao, String direcaoOrdenacao){
-        PageRequest pageRequest = PageRequest.of(paginas,linhas, Sort.Direction.valueOf(direcaoOrdenacao), ordenacao);
+    public Page<Cliente> buscarPage(Integer paginas, Integer linhas, String ordenacao, String direcaoOrdenacao) {
+        PageRequest pageRequest = PageRequest.of(paginas, linhas, Sort.Direction.valueOf(direcaoOrdenacao), ordenacao);
         return clienteRepository.findAll(pageRequest);
     }
 
     @Transactional
-    public Cliente inserir(Cliente cliente){
+    public Cliente inserir(Cliente cliente) {
         cliente.setId(null);
         Cliente clienteNovo = clienteRepository.save(cliente);
         enderecoRepository.saveAll(clienteNovo.getEnderecos());
         return clienteNovo;
     }
 
-    public Cliente DTOParaCliente(ClienteNovoDTO clienteNovoDTO){
-        Cliente cliente = new Cliente(clienteNovoDTO.getNome(),
-                clienteNovoDTO.getEmail(), clienteNovoDTO.getCpfOuCnpj(), TipoCliente.toEnum(clienteNovoDTO.getTipoCliente()));
+    public Cliente DTOParaCliente(ClienteNovoDTO clienteNovoDTO) {
+        Cliente cliente = new Cliente(clienteNovoDTO.getNome(), SexoClienteEnum.toEnum(clienteNovoDTO.getSexo()), clienteNovoDTO.getEmail(),
+                clienteNovoDTO.getCpfOuCnpj(), TipoClienteEnum.toEnum(clienteNovoDTO.getTipoCliente()));
 
         Cidade cidade = new Cidade(clienteNovoDTO.getCidadeId(), null, null);
 

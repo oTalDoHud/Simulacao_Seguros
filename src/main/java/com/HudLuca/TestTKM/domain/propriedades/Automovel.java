@@ -1,6 +1,6 @@
 package com.HudLuca.TestTKM.domain.propriedades;
 
-import com.HudLuca.TestTKM.domain.enums.TempoHabilitacao;
+import com.HudLuca.TestTKM.domain.enums.TempoHabilitacaoEnum;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
@@ -17,7 +17,6 @@ public class Automovel extends Propriedade {
     private String marca;
     private Date anoFabricacao;
     private Integer quantidadeDeProprietarios;
-    private String sexoProprietarioAtual;
     private Double quilometragem;
     private Integer tempoHabilitacaoProprietario;
 
@@ -27,17 +26,16 @@ public class Automovel extends Propriedade {
 
     public Automovel
             (double valorDaPropriedade, int quantidade, String placa, String modelo, String marca,
-                     Date anoFabricacao, Integer quantidadeDeProprietarios, String sexoProprietarioAtual,
-                     Double quilometragem, TempoHabilitacao tempoHabilitacaoProprietario) {
+             Date anoFabricacao, Integer quantidadeDeProprietarios, Double quilometragem,
+             TempoHabilitacaoEnum tempoHabilitacaoEnumProprietario) {
         super(valorDaPropriedade, quantidade);
         this.placa = placa;
         this.modelo = modelo;
         this.marca = marca;
         this.anoFabricacao = anoFabricacao;
         this.quantidadeDeProprietarios = quantidadeDeProprietarios;
-        this.sexoProprietarioAtual = sexoProprietarioAtual;
         this.quilometragem = quilometragem;
-        this.tempoHabilitacaoProprietario  = (tempoHabilitacaoProprietario == null) ? null : tempoHabilitacaoProprietario.getCd();
+        this.tempoHabilitacaoProprietario = (tempoHabilitacaoEnumProprietario == null) ? null : tempoHabilitacaoEnumProprietario.getCd();
     }
 
     public String getPlaca() {
@@ -80,14 +78,6 @@ public class Automovel extends Propriedade {
         this.quantidadeDeProprietarios = quantidadeDeProprietarios;
     }
 
-    public String getSexoProprietarioAtual() {
-        return sexoProprietarioAtual;
-    }
-
-    public void setSexoProprietarioAtual(String sexoProprietarioAtual) {
-        this.sexoProprietarioAtual = sexoProprietarioAtual;
-    }
-
     public Double getQuilometragem() {
         return quilometragem;
     }
@@ -96,12 +86,12 @@ public class Automovel extends Propriedade {
         this.quilometragem = quilometragem;
     }
 
-    public TempoHabilitacao getTempoHabilitacaoProprietario() {
-        return TempoHabilitacao.toEnum(this.tempoHabilitacaoProprietario);
+    public TempoHabilitacaoEnum getTempoHabilitacaoProprietario() {
+        return TempoHabilitacaoEnum.toEnum(this.tempoHabilitacaoProprietario);
     }
 
-    public void setTempoHabilitacaoProprietario(TempoHabilitacao tempoHabilitacaoProprietario) {
-        this.tempoHabilitacaoProprietario = tempoHabilitacaoProprietario.getCd();
+    public void setTempoHabilitacaoProprietario(TempoHabilitacaoEnum tempoHabilitacaoEnumProprietario) {
+        this.tempoHabilitacaoProprietario = tempoHabilitacaoEnumProprietario.getCd();
     }
 
 }
