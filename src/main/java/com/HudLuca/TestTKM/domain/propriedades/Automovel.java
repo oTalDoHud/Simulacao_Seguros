@@ -86,6 +86,10 @@ public class Automovel extends Propriedade {
         this.quilometragem = quilometragem;
     }
 
+    public String getTempoHabilitacaoProprietarioDescricao() {
+        return TempoHabilitacaoEnum.toEnum(this.tempoHabilitacaoProprietario).getDescricao();
+    }
+
     public TempoHabilitacaoEnum getTempoHabilitacaoProprietario() {
         return TempoHabilitacaoEnum.toEnum(this.tempoHabilitacaoProprietario);
     }

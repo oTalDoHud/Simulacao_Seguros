@@ -2,7 +2,7 @@ package com.HudLuca.TestTKM.domain.enums;
 
 public enum CoberturasAutomovelEnum {
 
-    INCENDIO(1, "Novato"),
+    INCENDIO(1, "Incêndio"),
     DESASTRE_NATURAL(2, "Desastre natural"),
     ACIDENTE(3, "Acidente"),
     ROUBO(4, "Roubo"),

@@ -140,10 +140,7 @@ public class Seguro implements Serializable {
         } else {
             throw new IllegalArgumentException("Informe uma cobertura válida - Propriedade informada não existe");
         }
-
-
     }
-
 
     @Override
     public boolean equals(Object o) {

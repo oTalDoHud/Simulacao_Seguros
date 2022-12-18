@@ -44,8 +44,12 @@ public abstract class Propriedade implements Serializable {
         this.id = id;
     }
 
-    public String getValorDaPropriedade() {
+    public String getValorDaPropriedadeFormatado() {
         return formatDinheiro(valorDaPropriedade);
+    }
+
+    public Double getValorDaPropriedade() {
+        return valorDaPropriedade;
     }
 
     public void setValorDaPropriedade(Double valorDaPropriedade) {

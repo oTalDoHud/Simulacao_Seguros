@@ -65,8 +65,12 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
-    public String getSexo() {
+    public String getSexoDescricacao() {
         return SexoClienteEnum.toEnum(sexo).getDescricao();
+    }
+
+    public SexoClienteEnum getSexo() {
+        return SexoClienteEnum.toEnum(sexo);
     }
 
     public void setSexo(SexoClienteEnum sexo) {
