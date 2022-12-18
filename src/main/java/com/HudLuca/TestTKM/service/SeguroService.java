@@ -49,6 +49,7 @@ public class SeguroService {
 
         Double valorAnual = calcularValorAnual(propriedade, cliente, seguroNovoDTO);
         Seguro seguro = new Seguro(seguroNovoDTO.getTituloSeguro(), valorAnual, cliente, propriedade);
+        cliente.getSeguros().add(seguro);
 
         for (Integer x : seguroNovoDTO.getCoberturas()) {
             seguro.addCoberturas(x);

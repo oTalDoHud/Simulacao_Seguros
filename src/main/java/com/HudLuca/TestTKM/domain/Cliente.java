@@ -29,6 +29,9 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "tb_telefone")
     private Set<String> telefones = new HashSet<>();
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Seguro> seguros = new ArrayList<>();
+
     public Cliente() {
     }
 
@@ -115,6 +118,14 @@ public class Cliente implements Serializable {
 
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
+    }
+
+    public List<Seguro> getSeguros() {
+        return seguros;
+    }
+
+    public void setSeguros(List<Seguro> seguros) {
+        this.seguros = seguros;
     }
 
     @Override

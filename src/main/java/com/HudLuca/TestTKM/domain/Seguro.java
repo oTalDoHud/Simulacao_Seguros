@@ -6,6 +6,7 @@ import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
 import com.HudLuca.TestTKM.domain.propriedades.Residencia;
 import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,8 +24,9 @@ public class Seguro implements Serializable {
     private Long id;
     private String tituloSeguro;
     private Double valorSeguroAnual;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Cliente cliente;
     @OneToOne
     @JoinColumn(name = "propriedade_id")
