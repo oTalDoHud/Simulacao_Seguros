@@ -2,6 +2,7 @@ package com.HudLuca.TestTKM.service;
 
 import com.HudLuca.TestTKM.domain.*;
 import com.HudLuca.TestTKM.domain.Seguro;
+import com.HudLuca.TestTKM.domain.dto.SeguroCategoriaDTO;
 import com.HudLuca.TestTKM.domain.dto.SeguroNovoDTO;
 import com.HudLuca.TestTKM.domain.enums.CoberturasAutomovelEnum;
 import com.HudLuca.TestTKM.domain.enums.SexoClienteEnum;
@@ -43,11 +44,17 @@ public class SeguroService {
         return seguroNovo;
     }
 
+    @Transactional
+    public Seguro atualizar(Seguro seguro) {
+        Seguro seguroNovo = repository.save(seguro);
+        return seguroNovo;
+    }
+
     public Seguro DTOParaSeguro(SeguroNovoDTO seguroNovoDTO) {
         Cliente cliente = clienteService.buscarPorId(seguroNovoDTO.getCliente());
         Propriedade propriedade = propriedadeService.buscarPorId(seguroNovoDTO.getPropriedade());
 
-        Double valorAnual = calcularValorAnual(propriedade, cliente, seguroNovoDTO);
+        Double valorAnual = calcularValorAnual(propriedade, cliente, seguroNovoDTO.getCoberturas());
         Seguro seguro = new Seguro(seguroNovoDTO.getTituloSeguro(), valorAnual, cliente, propriedade);
         cliente.getSeguros().add(seguro);
 
@@ -58,7 +65,24 @@ public class SeguroService {
         return seguro;
     }
 
-    private Double calcularValorAnual(Propriedade propriedade, Cliente cliente, SeguroNovoDTO seguroNovoDTO) {
+    public Seguro DTOParaSeguro(SeguroCategoriaDTO seguroCategoriaDTO, Long id) {
+        Seguro seguro = buscarPorId(id);
+
+        Cliente cliente = clienteService.buscarPorId(seguro.getCliente().getId());
+        Propriedade propriedade = propriedadeService.buscarPorId(seguro.getPropriedade().getId());
+
+        Double valorAnual = calcularValorAnual(propriedade, cliente, seguroCategoriaDTO.getCoberturas());
+        seguro = new Seguro(seguro.getTituloSeguro(), valorAnual, cliente, propriedade);
+        seguro.getCoberturas().clear();
+
+        for (Integer x : seguroCategoriaDTO.getCoberturas()) {
+            seguro.addCoberturas(x);
+        }
+
+        return seguro;
+    }
+
+    private Double calcularValorAnual(Propriedade propriedade, Cliente cliente, List<Integer> coberturas) {
 
         Double valorAnual = null;
 
@@ -66,7 +90,7 @@ public class SeguroService {
             valorAnual = propriedade.getValorDaPropriedade() * 0.04;
             valorAnual = calcularAcrescimentoPorSexo(cliente.getSexo(), valorAnual);
             valorAnual = calcularAcrescimentoPorTempoHabilitacao(((Automovel) propriedade).getTempoHabilitacaoProprietario(), valorAnual);
-            valorAnual = calcularAcrescimentoPorCobertura(seguroNovoDTO.getCoberturas(), valorAnual);
+            valorAnual = calcularAcrescimentoPorCobertura(coberturas, valorAnual);
         }
 
         return valorAnual;

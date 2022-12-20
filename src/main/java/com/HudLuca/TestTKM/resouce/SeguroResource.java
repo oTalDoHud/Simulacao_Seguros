@@ -1,6 +1,7 @@
 package com.HudLuca.TestTKM.resouce;
 
 import com.HudLuca.TestTKM.domain.Seguro;
+import com.HudLuca.TestTKM.domain.dto.SeguroCategoriaDTO;
 import com.HudLuca.TestTKM.domain.dto.SeguroNovoDTO;
 import com.HudLuca.TestTKM.service.SeguroService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,13 @@ public class SeguroResource {
     private SeguroService service;
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Seguro> buscarPorId(@PathVariable Long id){
+    public ResponseEntity<Seguro> buscarPorId(@PathVariable Long id) {
         Seguro seguro = service.buscarPorId(id);
         return ResponseEntity.ok().body(seguro);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> inserirSeguro(@Valid @RequestBody SeguroNovoDTO seguroNovoDTO){
+    public ResponseEntity<Void> inserirSeguro(@Valid @RequestBody SeguroNovoDTO seguroNovoDTO) {
         Seguro seguro = service.DTOParaSeguro(seguroNovoDTO);
 
         seguro = service.inserir(seguro);
@@ -34,5 +35,13 @@ public class SeguroResource {
                 buildAndExpand(seguro.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> atualizarSeguro(@Valid @RequestBody SeguroCategoriaDTO seguroCategoriaDTO, @PathVariable Long id) {
+        Seguro seguro = service.DTOParaSeguro(seguroCategoriaDTO, id);
+        seguro.setId(id);
+        service.atualizar(seguro);
+        return ResponseEntity.noContent().build();
     }
 }
