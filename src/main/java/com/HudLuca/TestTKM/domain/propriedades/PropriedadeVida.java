@@ -3,9 +3,14 @@ package com.HudLuca.TestTKM.domain.propriedades;
 
 import com.HudLuca.TestTKM.domain.GerenciadorArquivo;
 import com.HudLuca.TestTKM.domain.enums.ConsumoDrogasEnum;
+import com.HudLuca.TestTKM.domain.enums.PraticaEsportesRadicaisEnum;
+import com.HudLuca.TestTKM.domain.enums.TipoTrabalhoEnum;
+import com.HudLuca.TestTKM.domain.enums.ValoAReceberSeguroVidaEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,46 +20,60 @@ import java.util.List;
 @JsonTypeName("propriedadeVida")
 public class PropriedadeVida extends Propriedade {
 
-    private String praticaEsportesRadicais;
-    private Double valorAReceber;
+    @ElementCollection
+    @CollectionTable(name = "tb_pratica_esportes_radicais")
+    private List<Integer> praticaEsportesRadicais = new ArrayList<>();
+    private Integer valorAReceber;
     @OneToMany
     private List<GerenciadorArquivo> atestadoDeSaude = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "tb_consumo_drogas")
-    private List<Integer> consumoDrogas;
-    private String trabalho;
+    private List<Integer> consumoDrogas = new ArrayList<>();
+    private Integer trabalho;
 
     public PropriedadeVida() {
     }
 
-    public PropriedadeVida(String praticaEsportesRadicais, Double valorAReceber, String trabalho) {
+    public PropriedadeVida(ValoAReceberSeguroVidaEnum valorAReceber, TipoTrabalhoEnum trabalho) {
         super(null, 1);
-        this.praticaEsportesRadicais = praticaEsportesRadicais;
-        this.valorAReceber = valorAReceber;
-        this.trabalho = trabalho;
+        this.valorAReceber = (valorAReceber == null) ? null : valorAReceber.getCd();
+        this.trabalho = (trabalho == null) ? null : trabalho.getCd();
     }
 
-    public PropriedadeVida(Long id, String praticaEsportesRadicais, Double valorAReceber, String trabalho) {
+    public PropriedadeVida(Long id, ValoAReceberSeguroVidaEnum valorAReceber, TipoTrabalhoEnum trabalho) {
         super(id, null, 1);
-        this.praticaEsportesRadicais = praticaEsportesRadicais;
-        this.valorAReceber = valorAReceber;
-        this.trabalho = trabalho;
+        this.valorAReceber = (valorAReceber == null) ? null : valorAReceber.getCd();
+        this.trabalho = (trabalho == null) ? null : trabalho.getCd();
     }
 
-    public String getPraticaEsportesRadicais() {
+    public List<String> getPraticaEsportesRadicaisDescricao() {
+        List<String> praticaEsportesRadicais = new ArrayList<>();
+        for (Integer x : this.praticaEsportesRadicais) {
+            praticaEsportesRadicais.add(PraticaEsportesRadicaisEnum.toEnum(x).getDescricao());
+        }
         return praticaEsportesRadicais;
     }
 
-    public void setPraticaEsportesRadicais(String praticaEsportesRadicais) {
+    @JsonIgnore
+    public List<Integer> getPraticaEsportesRadicais() {
+        return praticaEsportesRadicais;
+    }
+
+    public void setPraticaEsportesRadicais(List<Integer> praticaEsportesRadicais) {
         this.praticaEsportesRadicais = praticaEsportesRadicais;
     }
 
-    public Double getValorAReceber() {
-        return valorAReceber;
+    public String getValorAReceberDescricao() {
+        return ValoAReceberSeguroVidaEnum.toEnum(valorAReceber).getDescricao();
     }
 
-    public void setValorAReceber(Double valorAReceber) {
-        this.valorAReceber = valorAReceber;
+    @JsonIgnore
+    public ValoAReceberSeguroVidaEnum getValorAReceber() {
+        return ValoAReceberSeguroVidaEnum.toEnum(valorAReceber);
+    }
+
+    public void setValorAReceber(ValoAReceberSeguroVidaEnum valorAReceber) {
+        this.valorAReceber = valorAReceber.getCd();
     }
 
     public List<GerenciadorArquivo> getAtestadoDeSaude() {
@@ -65,7 +84,7 @@ public class PropriedadeVida extends Propriedade {
         this.atestadoDeSaude = atestadoDeSaude;
     }
 
-    public List<String> getConsumoDrogas() {
+    public List<String> getConsumoDrogasDescricao() {
         List<String> consumoDrogasList = new ArrayList<>();
         for (Integer x : this.consumoDrogas) {
             consumoDrogasList.add(ConsumoDrogasEnum.toEnum(x).getDescricao());
@@ -73,20 +92,26 @@ public class PropriedadeVida extends Propriedade {
         return consumoDrogasList;
     }
 
-    public void setConsumoDrogas(ConsumoDrogasEnum... consumoDrogasEnums) {
-        List<Integer> consumoDrogasList = new ArrayList<>();
-        for (ConsumoDrogasEnum x : consumoDrogasEnums) {
-            consumoDrogasList.add(x.getCd());
-        }
-        this.consumoDrogas = consumoDrogasList;
+    @JsonIgnore
+    public List<Integer> getConsumoDrogas() {
+        return consumoDrogas;
     }
 
-    public String getTrabalho() {
-        return trabalho;
+    public void setConsumoDrogas(List<Integer> consumoDrogas) {
+        this.consumoDrogas = consumoDrogas;
     }
 
-    public void setTrabalho(String trabalho) {
-        this.trabalho = trabalho;
+    public String getTrabalhoDescricao() {
+        return TipoTrabalhoEnum.toEnum(trabalho).getDescricao();
+    }
+
+    @JsonIgnore
+    public TipoTrabalhoEnum getTrabalho() {
+        return TipoTrabalhoEnum.toEnum(trabalho);
+    }
+
+    public void setTrabalho(TipoTrabalhoEnum trabalho) {
+        this.trabalho = trabalho.getCd();
     }
 
 }

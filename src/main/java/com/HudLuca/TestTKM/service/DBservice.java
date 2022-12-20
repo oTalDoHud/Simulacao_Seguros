@@ -1,10 +1,7 @@
 package com.HudLuca.TestTKM.service;
 
 import com.HudLuca.TestTKM.domain.*;
-import com.HudLuca.TestTKM.domain.enums.ConsumoDrogasEnum;
-import com.HudLuca.TestTKM.domain.enums.SexoClienteEnum;
-import com.HudLuca.TestTKM.domain.enums.TempoHabilitacaoEnum;
-import com.HudLuca.TestTKM.domain.enums.TipoClienteEnum;
+import com.HudLuca.TestTKM.domain.enums.*;
 import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
 import com.HudLuca.TestTKM.repositories.*;
@@ -114,15 +111,19 @@ public class DBservice {
         //PROPRIEDADE VIDA E ATESTADO DE SAUDE
         GerenciadorArquivo atestadoSaudeHudson = new GerenciadorArquivo(clienteHudson, new Date(),
                 "AtestadoSaudeHudson.pdf", "servidor/Documentos/AtestadoSaudeHudson.pdf");
-        PropriedadeVida propriedadeVida1 = new PropriedadeVida("Não pratica", 50000.000,"Trabalho como desenvolvedor");
+
+        PropriedadeVida propriedadeVida1 = new PropriedadeVida(ValoAReceberSeguroVidaEnum.PLATINUM_II, TipoTrabalhoEnum.TRABALHO_SEM_ESFORCO_FISICO);
         propriedadeVida1.getAtestadoDeSaude().addAll(Arrays.asList(atestadoSaudeHudson));
-        propriedadeVida1.setConsumoDrogas(ConsumoDrogasEnum.ALCOOL, ConsumoDrogasEnum.MEDICAMENTOS_RECORRENTES);
+        propriedadeVida1.getConsumoDrogas().addAll(Arrays.asList(ConsumoDrogasEnum.ALCOOL.getCd(), ConsumoDrogasEnum.MEDICAMENTOS_RECORRENTES.getCd()));
+        propriedadeVida1.getPraticaEsportesRadicais().addAll(Arrays.asList(PraticaEsportesRadicaisEnum.NAO_PRATICA.getCd()));
+
 
         GerenciadorArquivo atestadoSaudeGabriel = new GerenciadorArquivo(clienteGabriel, new Date(),
                 "AtestadoSaudeGabriel.pdf", "servidor/Documentos/AtestadoSaudeGabriel.pdf");
-        PropriedadeVida propriedadeVida2 = new PropriedadeVida("Pratica", 25000.00, "Trabalho como paraquedista");
+        PropriedadeVida propriedadeVida2 = new PropriedadeVida(ValoAReceberSeguroVidaEnum.GOLD_I, TipoTrabalhoEnum.TRABALHO_INSALUBRE);
         propriedadeVida2.getAtestadoDeSaude().addAll(Arrays.asList(atestadoSaudeGabriel));
-        propriedadeVida2.setConsumoDrogas(ConsumoDrogasEnum.MACONHA);
+        propriedadeVida2.getConsumoDrogas().addAll(Arrays.asList(ConsumoDrogasEnum.MACONHA.getCd()));
+        propriedadeVida2.getPraticaEsportesRadicais().addAll(Arrays.asList(PraticaEsportesRadicaisEnum.MOTOCROSS.getCd(), PraticaEsportesRadicaisEnum.RAFTING.getCd()));
 
         gerenciadorArquivoRepository.saveAll(Arrays.asList(atestadoSaudeHudson, atestadoSaudeGabriel));
         propriedadeRepository.saveAll(Arrays.asList(propriedadeVida1, propriedadeVida2));
