@@ -133,10 +133,10 @@ public class DBservice {
 
 
         //SEGUROS
-        Seguro seguroAutomovel1 = new Seguro("Seguro automovel 01", 10000.00, clienteHudson, automovel1);
-        Seguro seguroAutomovel2 = new Seguro("Seguro automovel 02", 10000.00, clienteGabriel, automovel2);
-        Seguro seguroAutomovel3 = new Seguro("Seguro automovel 03", 10000.00, clienteLarissa, automovel3);
-        Seguro seguroAutomovel4 = new Seguro("Seguro automovel 04", 10000.00, clienteArgus, automovel4);
+        Seguro seguroAutomovel1 = new Seguro("Seguro automovel 01", 2844.89, clienteHudson, automovel1);
+        Seguro seguroAutomovel2 = new Seguro("Seguro automovel 02", 11948.77, clienteGabriel, automovel2);
+        Seguro seguroAutomovel3 = new Seguro("Seguro automovel 03", 2484.41, clienteLarissa, automovel3);
+        Seguro seguroAutomovel4 = new Seguro("Seguro automovel 04", 2580.90, clienteArgus, automovel4);
 
         Seguro seguroDeVida5 = new Seguro("Seguro de vida 01", 10000.00, clienteHudson, propriedadeVida1);
         Seguro seguroDeVida6 = new Seguro("Seguro de vida 02", 10000.00, clienteGabriel, propriedadeVida2);
