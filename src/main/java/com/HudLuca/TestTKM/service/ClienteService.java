@@ -54,8 +54,10 @@ public class ClienteService {
     }
 
     public Cliente DTOParaCliente(ClienteNovoDTO clienteNovoDTO) {
-        Cliente cliente = new Cliente(clienteNovoDTO.getNome(), SexoClienteEnum.toEnum(clienteNovoDTO.getSexo()), clienteNovoDTO.getEmail(),
-                clienteNovoDTO.getCpfOuCnpj(), TipoClienteEnum.toEnum(clienteNovoDTO.getTipoCliente()));
+        Cliente cliente = new Cliente(
+                clienteNovoDTO.getNome(), SexoClienteEnum.toEnum(clienteNovoDTO.getSexo()),
+                clienteNovoDTO.getIdade(), clienteNovoDTO.getEmail(), clienteNovoDTO.getCpfOuCnpj(),
+                TipoClienteEnum.toEnum(clienteNovoDTO.getTipoCliente()));
 
         Cidade cidade = new Cidade(clienteNovoDTO.getCidadeId(), null, null);
 

@@ -17,6 +17,7 @@ public class Cliente implements Serializable {
     private Long id;
     private String nome;
     private Integer sexo;
+    private Integer idade;
     @Column(unique = true)
     private String email;
     private String cpfOuCnpj;
@@ -35,18 +36,20 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(String nome, SexoClienteEnum sexo, String email, String cpfOuCnpj, TipoClienteEnum tipoClienteEnum) {
+    public Cliente(String nome, SexoClienteEnum sexo, Integer idade, String email, String cpfOuCnpj, TipoClienteEnum tipoClienteEnum) {
         this.nome = nome;
         this.sexo = (sexo == null) ? null : sexo.getCd();
+        this.idade = idade;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipoCliente = (tipoClienteEnum == null) ? null : tipoClienteEnum.getCd();
     }
 
-    public Cliente(Long id, String nome, SexoClienteEnum sexo, String email, String cpfOuCnpj, TipoClienteEnum tipoClienteEnum) {
+    public Cliente(Long id, String nome, SexoClienteEnum sexo, Integer idade, String email, String cpfOuCnpj, TipoClienteEnum tipoClienteEnum) {
         this.id = id;
         this.nome = nome;
         this.sexo = (sexo == null) ? null : sexo.getCd();
+        this.idade = idade;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipoCliente = (tipoClienteEnum == null) ? null : tipoClienteEnum.getCd();
@@ -78,6 +81,14 @@ public class Cliente implements Serializable {
 
     public void setSexo(SexoClienteEnum sexo) {
         this.sexo = sexo.getCd();
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
     }
 
     public String getEmail() {

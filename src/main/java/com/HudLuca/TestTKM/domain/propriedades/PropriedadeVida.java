@@ -16,11 +16,9 @@ import java.util.List;
 public class PropriedadeVida extends Propriedade {
 
     private String praticaEsportesRadicais;
-    private Integer idade;
     private Double valorAReceber;
     @OneToMany
     private List<GerenciadorArquivo> atestadoDeSaude = new ArrayList<>();
-    private String sexo;
     @ElementCollection
     @CollectionTable(name = "tb_consumo_drogas")
     private List<Integer> consumoDrogas;
@@ -29,25 +27,17 @@ public class PropriedadeVida extends Propriedade {
     public PropriedadeVida() {
     }
 
-    public PropriedadeVida(int quantidade,
-                           String praticaEsportesRadicais, Integer idade,
-                           Double valorAReceber, String sexo, String trabalho) {
-        super(null, quantidade);
+    public PropriedadeVida(String praticaEsportesRadicais, Double valorAReceber, String trabalho) {
+        super(null, 1);
         this.praticaEsportesRadicais = praticaEsportesRadicais;
-        this.idade = idade;
         this.valorAReceber = valorAReceber;
-        this.sexo = sexo;
         this.trabalho = trabalho;
     }
 
-    public PropriedadeVida(Long id, int quantidade,
-                           String praticaEsportesRadicais, Integer idade,
-                           Double valorAReceber, String sexo, String trabalho) {
-        super(id, null, quantidade);
+    public PropriedadeVida(Long id, String praticaEsportesRadicais, Double valorAReceber, String trabalho) {
+        super(id, null, 1);
         this.praticaEsportesRadicais = praticaEsportesRadicais;
-        this.idade = idade;
         this.valorAReceber = valorAReceber;
-        this.sexo = sexo;
         this.trabalho = trabalho;
     }
 
@@ -57,14 +47,6 @@ public class PropriedadeVida extends Propriedade {
 
     public void setPraticaEsportesRadicais(String praticaEsportesRadicais) {
         this.praticaEsportesRadicais = praticaEsportesRadicais;
-    }
-
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
     }
 
     public Double getValorAReceber() {
@@ -81,14 +63,6 @@ public class PropriedadeVida extends Propriedade {
 
     public void setAtestadoDeSaude(List<GerenciadorArquivo> atestadoDeSaude) {
         this.atestadoDeSaude = atestadoDeSaude;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
     }
 
     public List<String> getConsumoDrogas() {

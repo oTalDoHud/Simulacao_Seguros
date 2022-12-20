@@ -50,16 +50,16 @@ public class DBservice {
         estadoRepository.saveAll(Arrays.asList(estadoSP, estadoMG));
         cidadeRepository.saveAll(Arrays.asList(cidadeUber, cidadeSP, cidadeCampinas));
 
-        Cliente clienteHudson = new Cliente("Hudson Lucas Teles Vieira", SexoClienteEnum.MASCULINO,
+        Cliente clienteHudson = new Cliente("Hudson Lucas Teles Vieira", SexoClienteEnum.MASCULINO, 22,
                 "Hudson@gmail.com", "52840256010", TipoClienteEnum.PESSOA_FISICA);
 
-        Cliente clienteLarissa = new Cliente("Larissa Bertoldo Santos", SexoClienteEnum.FEMININO,
+        Cliente clienteLarissa = new Cliente("Larissa Bertoldo Santos", SexoClienteEnum.FEMININO, 21,
                 "Larissa@gmail.com", "40530720000", TipoClienteEnum.PESSOA_FISICA);
 
-        Cliente clienteGabriel = new Cliente("Gabriel Henrique Teles Vieira", SexoClienteEnum.MASCULINO,
+        Cliente clienteGabriel = new Cliente("Gabriel Henrique Teles Vieira", SexoClienteEnum.MASCULINO, 19,
                 "Gabriel@gmail.com", "79027285004", TipoClienteEnum.PESSOA_FISICA);
 
-        Cliente clienteArgus = new Cliente("Argus Sec", SexoClienteEnum.NAO_DEFINIDO,
+        Cliente clienteArgus = new Cliente("Argus Sec", SexoClienteEnum.NAO_DEFINIDO, null,
                 "Argus@gmail.com", "66654230000", TipoClienteEnum.PESSOA_JURIDICA);
 
         clienteHudson.getTelefones().addAll(Arrays.asList("933350-8032", "192858-2673"));
@@ -114,17 +114,13 @@ public class DBservice {
         //PROPRIEDADE VIDA E ATESTADO DE SAUDE
         GerenciadorArquivo atestadoSaudeHudson = new GerenciadorArquivo(clienteHudson, new Date(),
                 "AtestadoSaudeHudson.pdf", "servidor/Documentos/AtestadoSaudeHudson.pdf");
-        PropriedadeVida propriedadeVida1 = new PropriedadeVida(1,
-                "Não pratica", 35, 50000.000,
-                "Masculino", "Trabalho como desenvolvedor");
+        PropriedadeVida propriedadeVida1 = new PropriedadeVida("Não pratica", 50000.000,"Trabalho como desenvolvedor");
         propriedadeVida1.getAtestadoDeSaude().addAll(Arrays.asList(atestadoSaudeHudson));
         propriedadeVida1.setConsumoDrogas(ConsumoDrogasEnum.ALCOOL, ConsumoDrogasEnum.MEDICAMENTOS_RECORRENTES);
 
         GerenciadorArquivo atestadoSaudeGabriel = new GerenciadorArquivo(clienteGabriel, new Date(),
                 "AtestadoSaudeGabriel.pdf", "servidor/Documentos/AtestadoSaudeGabriel.pdf");
-        PropriedadeVida propriedadeVida2 = new PropriedadeVida(1,
-                "Pratica", 19, 25000.00,
-                "Masculino", "Trabalho como paraquedista");
+        PropriedadeVida propriedadeVida2 = new PropriedadeVida("Pratica", 25000.00, "Trabalho como paraquedista");
         propriedadeVida2.getAtestadoDeSaude().addAll(Arrays.asList(atestadoSaudeGabriel));
         propriedadeVida2.setConsumoDrogas(ConsumoDrogasEnum.MACONHA);
 
