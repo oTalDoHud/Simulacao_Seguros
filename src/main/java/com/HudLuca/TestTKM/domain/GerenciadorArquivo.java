@@ -1,5 +1,6 @@
 package com.HudLuca.TestTKM.domain;
 
+import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -22,6 +23,10 @@ public class GerenciadorArquivo implements Serializable {
     private Date dtCadastro;
     private String nomeArquivo;
     private String caminhoArquivo;
+
+    @ManyToOne
+    @JoinColumn(name = "propriedade_vida_id")
+    private PropriedadeVida propriedadeVida;
 
     public GerenciadorArquivo() {
     }
@@ -79,6 +84,14 @@ public class GerenciadorArquivo implements Serializable {
 
     public void setCaminhoArquivo(String caminhoArquivo) {
         this.caminhoArquivo = caminhoArquivo;
+    }
+
+    public PropriedadeVida getPropriedadeVida() {
+        return propriedadeVida;
+    }
+
+    public void setPropriedadeVida(PropriedadeVida propriedadeVida) {
+        this.propriedadeVida = propriedadeVida;
     }
 
     @Override

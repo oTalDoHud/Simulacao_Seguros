@@ -10,9 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -24,11 +25,11 @@ public class PropriedadeVida extends Propriedade {
     @CollectionTable(name = "tb_pratica_esportes_radicais")
     private List<Integer> praticaEsportesRadicais = new ArrayList<>();
     private Integer valorAReceber;
-    @OneToMany
+    @OneToMany(mappedBy = "propriedadeVida")
     private List<GerenciadorArquivo> atestadoDeSaude = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "tb_consumo_drogas")
-    private List<Integer> consumoDrogas = new ArrayList<>();
+    private Set<Integer> consumoDrogas = new HashSet<>();
     private Integer trabalho;
 
     public PropriedadeVida() {
@@ -93,11 +94,11 @@ public class PropriedadeVida extends Propriedade {
     }
 
     @JsonIgnore
-    public List<Integer> getConsumoDrogas() {
+    public Set<Integer> getConsumoDrogas() {
         return consumoDrogas;
     }
 
-    public void setConsumoDrogas(List<Integer> consumoDrogas) {
+    public void setConsumoDrogas(Set<Integer> consumoDrogas) {
         this.consumoDrogas = consumoDrogas;
     }
 

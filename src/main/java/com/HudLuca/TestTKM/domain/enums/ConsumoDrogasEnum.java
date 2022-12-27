@@ -2,7 +2,7 @@ package com.HudLuca.TestTKM.domain.enums;
 
 public enum ConsumoDrogasEnum {
 
-    ALCOOL(1, "Uso de bebidas alcóolicas"),
+    ALCOOL(11, "Uso de bebidas alcóolicas"),
     TABACO(2, "Uso de tabaco/cigarro"),
     MACONHA(3, "Uso recreativo de Maconha"),
     MEDICAMENTOS_NAO_PRESCRITOS(4, "Uso de Medicamentes não prescritos"),
