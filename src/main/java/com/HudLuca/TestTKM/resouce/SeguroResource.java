@@ -38,7 +38,7 @@ public class SeguroResource {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> atualizarSeguro(@Valid @RequestBody SeguroCategoriaDTO seguroCategoriaDTO, @PathVariable Long id) {
+    public ResponseEntity<Void> atualizarCategoriasSeguro(@Valid @RequestBody SeguroCategoriaDTO seguroCategoriaDTO, @PathVariable Long id) {
         Seguro seguro = service.DTOParaSeguro(seguroCategoriaDTO, id);
         seguro.setId(id);
         service.atualizar(seguro);

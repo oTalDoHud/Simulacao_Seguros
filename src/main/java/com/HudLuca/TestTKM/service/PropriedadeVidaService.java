@@ -4,8 +4,8 @@ import com.HudLuca.TestTKM.domain.GerenciadorArquivo;
 import com.HudLuca.TestTKM.domain.dto.PropriedadeVidaNovoDTO;
 import com.HudLuca.TestTKM.domain.enums.TipoTrabalhoEnum;
 import com.HudLuca.TestTKM.domain.enums.ValoAReceberSeguroVidaEnum;
-import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
+import com.HudLuca.TestTKM.repositories.GerenciadorArquivoRepository;
 import com.HudLuca.TestTKM.repositories.PropriedadeVidaRepository;
 import com.HudLuca.TestTKM.service.exception.ObjetoNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,8 @@ public class PropriedadeVidaService {
 
     @Autowired
     private PropriedadeVidaRepository repository;
-
+    @Autowired
+    private GerenciadorArquivoRepository gerenciadorArquivoRepository;
     @Autowired
     private GerenciadorArquivoService gerenciadorArquivoService;
 
@@ -37,7 +38,9 @@ public class PropriedadeVidaService {
     @Transactional
     public PropriedadeVida inserir(PropriedadeVida propriedadeVida) {
         propriedadeVida.setId(null);
-        return repository.save(propriedadeVida);
+        PropriedadeVida propriedadeVidaSave = repository.save(propriedadeVida);
+        gerenciadorArquivoRepository.saveAll(propriedadeVidaSave.getAtestadoDeSaude());
+        return propriedadeVidaSave;
     }
 
     public PropriedadeVida DTOparaPropriedadeVida(PropriedadeVidaNovoDTO propriedadeVidaNovoDTO) {
@@ -49,7 +52,20 @@ public class PropriedadeVidaService {
         List<GerenciadorArquivo> gerenciadorArquivoList = new ArrayList<>();
 
         for (Long x: propriedadeVidaNovoDTO.getAtestadoSaude()){
-            gerenciadorArquivoList.add(gerenciadorArquivoService.buscarPorId(x));
+            GerenciadorArquivo gerenciadorArquivo = gerenciadorArquivoService.buscarPorId(x);
+
+            if (gerenciadorArquivo.getPropriedadeVida() != null){
+                throw new IllegalArgumentException("O atestado já está associado a uma vida. Escolhe ou registre outro.");
+            }
+
+            gerenciadorArquivoList.add(gerenciadorArquivo);
+
+        }
+
+        for (GerenciadorArquivo x: gerenciadorArquivoList){
+
+
+            x.setPropriedadeVida(propriedadeVida);
         }
         
         propriedadeVida.getAtestadoDeSaude().addAll(gerenciadorArquivoList);
@@ -57,15 +73,9 @@ public class PropriedadeVidaService {
         List<Integer> consumoDrogasList = new ArrayList<>();
 
         for (Integer x: propriedadeVidaNovoDTO.getConsumoDrogas()){
-            System.out.println(x);
             consumoDrogasList.add(x);
         }
         propriedadeVida.getConsumoDrogas().addAll(consumoDrogasList);
-
-        System.out.println("\nSEGUNDO FOR ");
-        for (Integer x : propriedadeVida.getConsumoDrogas()){
-            System.out.println(x);
-        }
 
         List<Integer> praticaEsportesRadicais = new ArrayList<>();
 

@@ -4,11 +4,10 @@ import com.HudLuca.TestTKM.domain.*;
 import com.HudLuca.TestTKM.domain.Seguro;
 import com.HudLuca.TestTKM.domain.dto.SeguroCategoriaDTO;
 import com.HudLuca.TestTKM.domain.dto.SeguroNovoDTO;
-import com.HudLuca.TestTKM.domain.enums.CoberturasAutomovelEnum;
-import com.HudLuca.TestTKM.domain.enums.SexoClienteEnum;
-import com.HudLuca.TestTKM.domain.enums.TempoHabilitacaoEnum;
+import com.HudLuca.TestTKM.domain.enums.*;
 import com.HudLuca.TestTKM.domain.propriedades.Automovel;
 import com.HudLuca.TestTKM.domain.propriedades.Propriedade;
+import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
 import com.HudLuca.TestTKM.repositories.SeguroRepository;
 import com.HudLuca.TestTKM.service.exception.ObjetoNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.HudLuca.TestTKM.service.utils.StringUtils.getSTIdNaoEncontrado;
 
@@ -90,13 +90,67 @@ public class SeguroService {
             valorAnual = propriedade.getValorDaPropriedade() * 0.04;
             valorAnual = calcularAcrescimentoPorSexo(cliente.getSexo(), valorAnual);
             valorAnual = calcularAcrescimentoPorTempoHabilitacao(((Automovel) propriedade).getTempoHabilitacaoProprietario(), valorAnual);
-            valorAnual = calcularAcrescimentoPorCobertura(coberturas, valorAnual);
+            valorAnual = calcularAcrescimentoPorCoberturaAutomovel(coberturas, valorAnual);
+        } else if (propriedade instanceof PropriedadeVida) {
+            valorAnual = ((PropriedadeVida) propriedade).getValorAReceber().getValorAReceber() * 0.04;
+            valorAnual = calcularDecrescimoPorConsumoDrogas(((PropriedadeVida) propriedade).getConsumoDrogas(), valorAnual);
+            valorAnual = calcularAcrescimentoPorTrabalho(((PropriedadeVida) propriedade).getTrabalho(), valorAnual);
         }
 
         return valorAnual;
     }
 
-    private Double calcularAcrescimentoPorCobertura(List<Integer> coberturas, Double valorAnual) {
+    private Double calcularAcrescimentoPorTrabalho(TipoTrabalhoEnum trabalho, Double valorAnual) {
+        switch (trabalho) {
+            case TRABALHO_INSALUBRE:
+                valorAnual -= valorAnual * 0.4;
+                break;
+            case TRABALHO_COM_ESFORCO_FISICO:
+                valorAnual -= valorAnual * 0.3;
+                break;
+            case TRABALHO_SEM_ESFORCO_FISICO:
+                valorAnual += valorAnual * 0.1;
+                break;
+        }
+
+        return valorAnual;
+    }
+
+    private Double calcularDecrescimoPorConsumoDrogas(Set<Integer> consumoDrogas, Double valorAnual) {
+        for (Integer x : consumoDrogas) {
+            switch (ConsumoDrogasEnum.toEnum(x)) {
+                case NAO_CONSOME:
+                    valorAnual += valorAnual * 0.2;
+                    break;
+                case ALCOOL:
+                    valorAnual -= valorAnual * 0.5;
+                    break;
+                case MACONHA:
+                    valorAnual -= valorAnual * 0.1;
+                    break;
+                case MEDICAMENTOS_NAO_PRESCRITOS:
+                    valorAnual -= valorAnual * 0.4;
+                    break;
+                case MEDICAMENTOS_RECORRENTES:
+                    valorAnual -= valorAnual * 0.4;
+                    break;
+                case HEROINA:
+                    valorAnual -= valorAnual * 0.4;
+                    break;
+                case COCAINA:
+                    valorAnual -= valorAnual * 0.4;
+                    break;
+                case CRACK:
+                    valorAnual -= valorAnual * 0.4;
+                    break;
+
+            }
+        }
+
+        return valorAnual;
+    }
+
+    private Double calcularAcrescimentoPorCoberturaAutomovel(List<Integer> coberturas, Double valorAnual) {
         for (Integer x : coberturas) {
 
             switch (CoberturasAutomovelEnum.toEnum(x)) {

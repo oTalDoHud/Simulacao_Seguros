@@ -26,6 +26,7 @@ public class GerenciadorArquivo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "propriedade_vida_id")
+    @JsonIgnore
     private PropriedadeVida propriedadeVida;
 
     public GerenciadorArquivo() {

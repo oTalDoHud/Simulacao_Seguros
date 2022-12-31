@@ -125,8 +125,22 @@ public class DBservice {
         propriedadeVida2.getConsumoDrogas().addAll(Arrays.asList(ConsumoDrogasEnum.MACONHA.getCd()));
         propriedadeVida2.getPraticaEsportesRadicais().addAll(Arrays.asList(PraticaEsportesRadicaisEnum.MOTOCROSS.getCd(), PraticaEsportesRadicaisEnum.RAFTING.getCd()));
 
-        gerenciadorArquivoRepository.saveAll(Arrays.asList(atestadoSaudeHudson, atestadoSaudeGabriel));
         propriedadeRepository.saveAll(Arrays.asList(propriedadeVida1, propriedadeVida2));
+
+        atestadoSaudeHudson.setPropriedadeVida(propriedadeVida1);
+        atestadoSaudeGabriel.setPropriedadeVida(propriedadeVida2);
+
+        GerenciadorArquivo atestadoSaude01 = new GerenciadorArquivo(clienteLarissa, new Date(),
+                "atestadoSaude01.pdf", "servidor/Documentos/atestadoSaude01.pdf");
+
+        GerenciadorArquivo atestadoSaude02 = new GerenciadorArquivo(clienteHudson, new Date(),
+                "atestadoSaude02.pdf", "servidor/Documentos/atestadoSaude02.pdf");
+
+        GerenciadorArquivo atestadoSaude03 = new GerenciadorArquivo(clienteGabriel, new Date(),
+                "atestadoSaude03.pdf", "servidor/Documentos/atestadoSaude03.pdf");
+        gerenciadorArquivoRepository.saveAll(Arrays.asList(
+                atestadoSaudeHudson, atestadoSaudeGabriel, atestadoSaude01,
+                atestadoSaude02, atestadoSaude03));
 
 
         //SEGUROS

@@ -74,7 +74,10 @@ public class Seguro implements Serializable {
     }
 
     public String getValorSeguroMensal() {
-        return formatDinheiro(valorSeguroAnual / 12);
+        if (valorSeguroAnual != null){
+            return formatDinheiro(valorSeguroAnual / 12);
+        }
+        return "";
     }
 
     public void setValorSeguroAnual(Double valorSeguroAnual) {

@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.HudLuca.TestTKM.utils.FormatUtils.formatDinheiro;
+
 
 @Entity
 @Table(name = "tb_propriedade_vida")
@@ -66,6 +68,12 @@ public class PropriedadeVida extends Propriedade {
 
     public String getValorAReceberDescricao() {
         return ValoAReceberSeguroVidaEnum.toEnum(valorAReceber).getDescricao();
+    }
+    public String getValorAReceberDescricaoValor() {
+        if (valorAReceber != null){
+            return formatDinheiro(ValoAReceberSeguroVidaEnum.toEnum(valorAReceber).getValorAReceber());
+        }
+        return "";
     }
 
     @JsonIgnore
