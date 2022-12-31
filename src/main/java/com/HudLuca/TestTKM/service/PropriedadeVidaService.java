@@ -2,6 +2,7 @@ package com.HudLuca.TestTKM.service;
 
 import com.HudLuca.TestTKM.domain.GerenciadorArquivo;
 import com.HudLuca.TestTKM.domain.dto.PropriedadeVidaNovoDTO;
+import com.HudLuca.TestTKM.domain.enums.ConsumoDrogasEnum;
 import com.HudLuca.TestTKM.domain.enums.TipoTrabalhoEnum;
 import com.HudLuca.TestTKM.domain.enums.ValoAReceberSeguroVidaEnum;
 import com.HudLuca.TestTKM.domain.propriedades.PropriedadeVida;
@@ -12,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.HudLuca.TestTKM.service.utils.StringUtils.getSTIdNaoEncontrado;
 
@@ -51,10 +50,10 @@ public class PropriedadeVidaService {
 
         List<GerenciadorArquivo> gerenciadorArquivoList = new ArrayList<>();
 
-        for (Long x: propriedadeVidaNovoDTO.getAtestadoSaude()){
+        for (Long x : propriedadeVidaNovoDTO.getAtestadoSaude()) {
             GerenciadorArquivo gerenciadorArquivo = gerenciadorArquivoService.buscarPorId(x);
 
-            if (gerenciadorArquivo.getPropriedadeVida() != null){
+            if (gerenciadorArquivo.getPropriedadeVida() != null) {
                 throw new IllegalArgumentException("O atestado já está associado a uma vida. Escolhe ou registre outro.");
             }
 
@@ -62,28 +61,47 @@ public class PropriedadeVidaService {
 
         }
 
-        for (GerenciadorArquivo x: gerenciadorArquivoList){
-
-
+        for (GerenciadorArquivo x : gerenciadorArquivoList) {
             x.setPropriedadeVida(propriedadeVida);
         }
-        
+
         propriedadeVida.getAtestadoDeSaude().addAll(gerenciadorArquivoList);
 
-        List<Integer> consumoDrogasList = new ArrayList<>();
+        Set<Integer> consumoDrogasList = new HashSet<>();
 
-        for (Integer x: propriedadeVidaNovoDTO.getConsumoDrogas()){
+        for (Integer x : propriedadeVidaNovoDTO.getConsumoDrogas()) {
             consumoDrogasList.add(x);
         }
+        verificarSeConsumoDrogas(propriedadeVidaNovoDTO.getConsumoDrogas());
+
         propriedadeVida.getConsumoDrogas().addAll(consumoDrogasList);
 
         List<Integer> praticaEsportesRadicais = new ArrayList<>();
 
-        for (Integer x: propriedadeVidaNovoDTO.getPraticaEsporteRadical()){
+        for (Integer x : propriedadeVidaNovoDTO.getPraticaEsporteRadical()) {
             praticaEsportesRadicais.add(x);
         }
-        propriedadeVida.getConsumoDrogas().addAll(praticaEsportesRadicais);
+        propriedadeVida.getPraticaEsportesRadicais().addAll(praticaEsportesRadicais);
 
         return propriedadeVida;
+    }
+
+    private void verificarSeConsumoDrogas(Set<Integer> consumoDrogas) {
+
+        boolean naoConsomeDrogas = false;
+
+        for (Integer x : consumoDrogas) {
+            if (x.equals(ConsumoDrogasEnum.NAO_CONSOME.getCd())) {
+                naoConsomeDrogas = true;
+            }
+        }
+
+        for (Integer x : consumoDrogas) {
+            if (naoConsomeDrogas) {
+                if (!x.equals(ConsumoDrogasEnum.NAO_CONSOME.getCd())) {
+                    throw new IllegalArgumentException("A lista de drogas consumidas não pode contar \"Não consome\" seguido por alguma droga consumida.");
+                }
+            }
+        }
     }
 }

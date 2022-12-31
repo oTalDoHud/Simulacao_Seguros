@@ -6,7 +6,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PropriedadeVidaNovoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,7 +21,7 @@ public class PropriedadeVidaNovoDTO implements Serializable {
     private Integer valorAReceber;
 
     @NotEmpty(message = "Consumo de drogas não pode ser vazio")
-    private List<Integer> consumoDrogas = new ArrayList<>();
+    private Set<Integer> consumoDrogas = new HashSet<>();
 
     @Positive(message = "Trabalho não pode ser zero ou negativo")
     private Integer trabalho;
@@ -56,11 +58,11 @@ public class PropriedadeVidaNovoDTO implements Serializable {
         this.valorAReceber = valorAReceber;
     }
 
-    public List<Integer> getConsumoDrogas() {
+    public Set<Integer> getConsumoDrogas() {
         return consumoDrogas;
     }
 
-    public void setConsumoDrogas(List<Integer> consumoDrogas) {
+    public void setConsumoDrogas(Set<Integer> consumoDrogas) {
         this.consumoDrogas = consumoDrogas;
     }
 
