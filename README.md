@@ -146,13 +146,19 @@ Retorno da busca por id
 - 200 - Ok
 
 ### Read - Exceção
-colocar diversas exceções
+Exceção disparada ao tentar buscar um objeto que não existe pelo id
+![buscar_seguro](https://github.com/oTalDoHud/Simulacao_Seguros/blob/main/Assets/cliente_excecao.png)
+
 
 
 # Regras de negócio
-trabalhar mais as regras de negócio
 
 Os bens podem ser assegurados seguindo o seu tipo, sendo eles vida, residência e automóvel. Posteriormente também é permitido registrar um seguro que, no que lhe concerne, porta coberturas que aumentam o custo desse seguro.
+
+Algumas regras que a aplicação contem
+- As categorias não podem se repetir
+- Validação de placa (Mercosul)
+- Validação de CPF
 
 # Tecnologias utilizadas
 - Java
