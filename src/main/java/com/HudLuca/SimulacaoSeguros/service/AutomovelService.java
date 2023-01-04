@@ -39,28 +39,4 @@ public class AutomovelService {
                 dto.getMarca(), dto.getAnoFabricacao(), dto.getQuantidadeDeProprietarios(),
                 dto.getQuilometragem(), TempoHabilitacaoEnum.toEnum(4));
     }
-
-    private Integer CalcularPericiaHabilitado(Integer tempoHabilitacaoProprietario, String sexoProprietarioAtual) {
-
-//        if(tempoHabilitacaoProprietario != null && sexoProprietarioAtual != null){
-//            if ("mulher".equals(sexoProprietarioAtual.toLowerCase())){
-//                if (tempoHabilitacaoProprietario <= 4){
-//                    return TempoHabilitacaoEnum.NOVATO.getCd();
-//                }else if(tempoHabilitacaoProprietario <= 9){
-//                    return TempoHabilitacaoEnum.MEDIANO.getCd();
-//                }else {
-//                    return TempoHabilitacaoEnum.EXPERIENTE.getCd();
-//                }
-//            } else if ("homem".equals(sexoProprietarioAtual.toLowerCase())) {
-//                if (tempoHabilitacaoProprietario <= 5){
-//                    return TempoHabilitacaoEnum.NOVATO.getCd();
-//                }else if(tempoHabilitacaoProprietario <= 10){
-//                    return TempoHabilitacaoEnum.MEDIANO.getCd();
-//                }else {
-//                    return TempoHabilitacaoEnum.EXPERIENTE.getCd();
-//                }
-//            }
-//        }
-        throw new IllegalArgumentException("Sexo ou tempo de experiência dirigindo está nulo");
-    }
 }
